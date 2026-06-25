@@ -1,6 +1,6 @@
 export default function Sidebar() {
   return (
-    <aside className="w-64 border-r bg-white p-6">
+    <aside className="hidden w-64 border-r bg-white p-6 md:block">
       <h2 className="mb-8 text-2xl font-bold">
         StartupLens
       </h2>

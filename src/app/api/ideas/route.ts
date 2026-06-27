@@ -32,6 +32,16 @@ export async function POST(request: NextRequest) {
 
     const { title, problem, solution, userId } = body;
 
+    if (!title || !problem || !solution || !userId) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "All fields are required",
+        },
+        { status: 400 }
+      );
+    }
+
     const idea = await prisma.startupIdea.create({
       data: {
         title,

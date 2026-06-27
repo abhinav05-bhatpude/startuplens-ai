@@ -15,9 +15,7 @@ export async function GET(
     const { id } = await params;
 
     const idea = await prisma.startupIdea.findUnique({
-      where: {
-        id,
-      },
+      where: { id },
     });
 
     if (!idea) {
@@ -41,6 +39,43 @@ export async function GET(
       {
         success: false,
         message: "Failed to fetch startup idea",
+      },
+      { status: 500 }
+    );
+  }
+}
+
+export async function PUT(
+  request: NextRequest,
+  { params }: Params
+) {
+  try {
+    const { id } = await params;
+
+    const body = await request.json();
+
+    const { title, problem, solution } = body;
+
+    const updatedIdea = await prisma.startupIdea.update({
+      where: { id },
+      data: {
+        title,
+        problem,
+        solution,
+      },
+    });
+
+    return NextResponse.json({
+      success: true,
+      data: updatedIdea,
+    });
+  } catch (error) {
+    console.error(error);
+
+    return NextResponse.json(
+      {
+        success: false,
+        message: "Failed to update startup idea",
       },
       { status: 500 }
     );

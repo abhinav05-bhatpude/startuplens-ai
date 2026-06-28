@@ -7,7 +7,7 @@ import DashboardNavbar from "@/components/dashboard/DashboardNavbar";
 import IdeaCard from "@/components/dashboard/IdeaCard";
 import CreateIdeaModal from "@/components/dashboard/CreateIdeaModal";
 
-import { getIdeas } from "@/lib/api";
+import { getIdeas, deleteIdea } from "@/lib/api";
 
 interface StartupIdea {
   id: string;
@@ -36,8 +36,20 @@ export default function DashboardPage() {
     console.log("Edit:", id);
   }
 
-  function handleDelete(id: string) {
-    console.log("Delete:", id);
+  async function handleDelete(id: string) {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this startup idea?"
+    );
+
+    if (!confirmed) return;
+
+    try {
+      await deleteIdea(id);
+      fetchIdeas();
+    } catch (error) {
+      console.error(error);
+      alert("Failed to delete startup idea.");
+    }
   }
 
   return (

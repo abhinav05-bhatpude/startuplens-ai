@@ -3,7 +3,13 @@
 import { useState } from "react";
 import { createIdea } from "@/lib/api";
 
-export default function CreateIdeaModal() {
+interface CreateIdeaModalProps {
+  onIdeaCreated: () => void;
+}
+
+export default function CreateIdeaModal({
+  onIdeaCreated,
+}: CreateIdeaModalProps) {
   const [title, setTitle] = useState("");
   const [problem, setProblem] = useState("");
   const [solution, setSolution] = useState("");
@@ -29,7 +35,7 @@ export default function CreateIdeaModal() {
       setProblem("");
       setSolution("");
 
-      alert("Startup idea created successfully!");
+      onIdeaCreated();
     } catch (error) {
       console.error(error);
       alert("Failed to create startup idea.");

@@ -19,16 +19,16 @@ interface StartupIdea {
 export default function DashboardPage() {
   const [ideas, setIdeas] = useState<StartupIdea[]>([]);
 
-  useEffect(() => {
-    async function fetchIdeas() {
-      try {
-        const response = await getIdeas();
-        setIdeas(response.data);
-      } catch (error) {
-        console.error(error);
-      }
+  async function fetchIdeas() {
+    try {
+      const response = await getIdeas();
+      setIdeas(response.data);
+    } catch (error) {
+      console.error(error);
     }
+  }
 
+  useEffect(() => {
     fetchIdeas();
   }, []);
 
@@ -40,7 +40,9 @@ export default function DashboardPage() {
         <DashboardNavbar />
 
         <main className="space-y-8 p-6">
-          <CreateIdeaModal />
+          <CreateIdeaModal
+            onIdeaCreated={fetchIdeas}
+          />
 
           {ideas.length === 0 ? (
             <p className="text-gray-500">

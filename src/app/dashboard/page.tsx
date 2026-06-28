@@ -7,7 +7,7 @@ import DashboardNavbar from "@/components/dashboard/DashboardNavbar";
 import IdeaCard from "@/components/dashboard/IdeaCard";
 import CreateIdeaModal from "@/components/dashboard/CreateIdeaModal";
 
-import { getIdeas, deleteIdea } from "@/lib/api";
+import { deleteIdea, getIdeas } from "@/lib/api";
 
 interface StartupIdea {
   id: string;
@@ -18,13 +18,18 @@ interface StartupIdea {
 
 export default function DashboardPage() {
   const [ideas, setIdeas] = useState<StartupIdea[]>([]);
+  const [loading, setLoading] = useState(true);
 
   async function fetchIdeas() {
     try {
+      setLoading(true);
+
       const response = await getIdeas();
       setIdeas(response.data);
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -62,10 +67,22 @@ export default function DashboardPage() {
         <main className="space-y-8 p-6">
           <CreateIdeaModal onIdeaCreated={fetchIdeas} />
 
-          {ideas.length === 0 ? (
-            <p className="text-gray-500">
-              No startup ideas found.
-            </p>
+          {loading ? (
+            <div className="rounded-lg border bg-white p-6 text-center">
+              <p className="text-gray-500">
+                Loading startup ideas...
+              </p>
+            </div>
+          ) : ideas.length === 0 ? (
+            <div className="rounded-lg border bg-white p-6 text-center">
+              <h2 className="text-xl font-semibold">
+                No Startup Ideas Yet
+              </h2>
+
+              <p className="mt-2 text-gray-500">
+                Create your first startup idea to get started.
+              </p>
+            </div>
           ) : (
             <div className="grid gap-4 md:grid-cols-2">
               {ideas.map((idea) => (

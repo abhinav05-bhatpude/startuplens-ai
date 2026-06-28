@@ -32,6 +32,14 @@ export default function DashboardPage() {
     fetchIdeas();
   }, []);
 
+  function handleEdit(id: string) {
+    console.log("Edit:", id);
+  }
+
+  function handleDelete(id: string) {
+    console.log("Delete:", id);
+  }
+
   return (
     <div className="flex min-h-screen">
       <Sidebar />
@@ -40,9 +48,7 @@ export default function DashboardPage() {
         <DashboardNavbar />
 
         <main className="space-y-8 p-6">
-          <CreateIdeaModal
-            onIdeaCreated={fetchIdeas}
-          />
+          <CreateIdeaModal onIdeaCreated={fetchIdeas} />
 
           {ideas.length === 0 ? (
             <p className="text-gray-500">
@@ -53,8 +59,12 @@ export default function DashboardPage() {
               {ideas.map((idea) => (
                 <IdeaCard
                   key={idea.id}
+                  id={idea.id}
                   title={idea.title}
-                  description={idea.problem}
+                  problem={idea.problem}
+                  solution={idea.solution}
+                  onEdit={handleEdit}
+                  onDelete={handleDelete}
                 />
               ))}
             </div>

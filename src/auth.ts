@@ -18,6 +18,27 @@ export const {
     strategy: "jwt",
   },
 
+  pages: {
+    signIn: "/login",
+  },
+
+  callbacks: {
+    authorized({ auth, request }) {
+      const isLoggedIn = !!auth?.user;
+
+      const isDashboard =
+        request.nextUrl.pathname.startsWith(
+          "/dashboard"
+        );
+
+      if (isDashboard && !isLoggedIn) {
+        return false;
+      }
+
+      return true;
+    },
+  },
+
   providers: [
     Google({
       clientId: process.env.GOOGLE_CLIENT_ID || "",
@@ -26,8 +47,6 @@ export const {
     }),
 
     Credentials({
-      name: "Credentials",
-
       credentials: {
         email: {},
         password: {},
@@ -51,13 +70,13 @@ export const {
           return null;
         }
 
-        const validPassword =
+        const passwordMatch =
           await bcrypt.compare(
             credentials.password as string,
             user.password
           );
 
-        if (!validPassword) {
+        if (!passwordMatch) {
           return null;
         }
 
@@ -65,8 +84,4 @@ export const {
       },
     }),
   ],
-
-  pages: {
-    signIn: "/login",
-  },
 });

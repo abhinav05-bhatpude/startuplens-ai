@@ -23,6 +23,22 @@ export const {
   },
 
   callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+      }
+
+      return token;
+    },
+
+    async session({ session, token }) {
+      if (session.user) {
+        session.user.id = token.id as string;
+      }
+
+      return session;
+    },
+
     authorized({ auth, request }) {
       const isLoggedIn = !!auth?.user;
 
@@ -41,7 +57,8 @@ export const {
 
   providers: [
     Google({
-      clientId: process.env.GOOGLE_CLIENT_ID || "",
+      clientId:
+        process.env.GOOGLE_CLIENT_ID || "",
       clientSecret:
         process.env.GOOGLE_CLIENT_SECRET || "",
     }),
@@ -60,23 +77,24 @@ export const {
           return null;
         }
 
-        const user = await prisma.user.findUnique({
-          where: {
-            email: credentials.email as string,
-          },
-        });
+        const user =
+          await prisma.user.findUnique({
+            where: {
+              email: credentials.email as string,
+            },
+          });
 
         if (!user || !user.password) {
           return null;
         }
 
-        const passwordMatch =
+        const isValidPassword =
           await bcrypt.compare(
             credentials.password as string,
             user.password
           );
 
-        if (!passwordMatch) {
+        if (!isValidPassword) {
           return null;
         }
 

@@ -19,3 +19,10 @@ An AI-powered platform that analyzes startup ideas and generates insights to hel
 - Prisma ORM
 - Auth.js
 - Gemini API
+
+## ⚙️ How It Works
+
+1. User submits a startup idea.
+2. AI analyzes the concept.
+3. The application generates business insights.
+4. Users can review and save previous analyses.

@@ -9,3 +9,13 @@ An AI-powered platform that analyzes startup ideas and generates insights to hel
 - MVP recommendations
 - Monetization suggestions
 - Launch roadmap generation
+
+## 🛠️ Tech Stack
+
+- Next.js 15
+- TypeScript
+- Tailwind CSS
+- PostgreSQL
+- Prisma ORM
+- Auth.js
+- Gemini API

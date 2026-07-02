@@ -1,9 +1,26 @@
 import { NextRequest, NextResponse } from "next/server";
+
+import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 
 export async function GET() {
   try {
+    const session = await auth();
+
+    if (!session?.user?.id) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Unauthorized",
+        },
+        { status: 401 }
+      );
+    }
+
     const ideas = await prisma.startupIdea.findMany({
+      where: {
+        userId: session.user.id,
+      },
       orderBy: {
         createdAt: "desc",
       },
@@ -28,11 +45,23 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
+    const session = await auth();
+
+    if (!session?.user?.id) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Unauthorized",
+        },
+        { status: 401 }
+      );
+    }
+
     const body = await request.json();
 
-    const { title, problem, solution, userId } = body;
+    const { title, problem, solution } = body;
 
-    if (!title || !problem || !solution || !userId) {
+    if (!title || !problem || !solution) {
       return NextResponse.json(
         {
           success: false,
@@ -47,7 +76,7 @@ export async function POST(request: NextRequest) {
         title,
         problem,
         solution,
-        userId,
+        userId: session.user.id,
       },
     });
 

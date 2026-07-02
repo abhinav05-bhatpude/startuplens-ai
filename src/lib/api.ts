@@ -12,7 +12,6 @@ export async function createIdea(data: {
   title: string;
   problem: string;
   solution: string;
-  userId: string;
 }) {
   const response = await fetch("/api/ideas", {
     method: "POST",

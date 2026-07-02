@@ -27,8 +27,7 @@ export default function CreateIdeaModal({
         title,
         problem,
         solution,
-        // Temporary until Auth.js is added on Day 6
-        userId: "REPLACE_WITH_USER_ID",
+      
       });
 
       setTitle("");

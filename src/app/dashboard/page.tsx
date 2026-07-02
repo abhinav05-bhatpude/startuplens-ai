@@ -20,18 +20,29 @@ export default function DashboardPage() {
   const [ideas, setIdeas] = useState<StartupIdea[]>([]);
   const [loading, setLoading] = useState(true);
 
-  async function fetchIdeas() {
-    try {
-      setLoading(true);
+ async function fetchIdeas() {
+  try {
+    setLoading(true);
 
-      const response = await getIdeas();
-      setIdeas(response.data);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
+    const response = await getIdeas();
+
+    if (response.status === 401) {
+      window.location.href = "/login";
+      return;
     }
+
+    if (!response.ok) {
+      alert(response.data.message);
+      return;
+    }
+
+    setIdeas(response.data.data);
+  } catch (error) {
+    console.error(error);
+  } finally {
+    setLoading(false);
   }
+}
 
   useEffect(() => {
     fetchIdeas();

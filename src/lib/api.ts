@@ -1,11 +1,13 @@
 export async function getIdeas() {
   const response = await fetch("/api/ideas");
 
-  if (!response.ok) {
-    throw new Error("Failed to fetch startup ideas");
-  }
+  const data = await response.json();
 
-  return response.json();
+  return {
+    ok: response.ok,
+    status: response.status,
+    data,
+  };
 }
 
 export async function createIdea(data: {
@@ -21,19 +23,11 @@ export async function createIdea(data: {
     body: JSON.stringify(data),
   });
 
-  if (!response.ok) {
-    throw new Error("Failed to create startup idea");
-  }
-
   return response.json();
 }
 
 export async function getIdea(id: string) {
   const response = await fetch(`/api/ideas/${id}`);
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch startup idea");
-  }
 
   return response.json();
 }
@@ -54,10 +48,6 @@ export async function updateIdea(
     body: JSON.stringify(data),
   });
 
-  if (!response.ok) {
-    throw new Error("Failed to update startup idea");
-  }
-
   return response.json();
 }
 
@@ -65,10 +55,6 @@ export async function deleteIdea(id: string) {
   const response = await fetch(`/api/ideas/${id}`, {
     method: "DELETE",
   });
-
-  if (!response.ok) {
-    throw new Error("Failed to delete startup idea");
-  }
 
   return response.json();
 }

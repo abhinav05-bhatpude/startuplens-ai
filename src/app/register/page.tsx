@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-export default function LoginPage() {
+export default function RegisterPage() {
   return (
     <main className="flex min-h-screen items-center justify-center bg-gray-100 px-4">
       <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-lg">
@@ -11,10 +11,16 @@ export default function LoginPage() {
         </h1>
 
         <p className="mb-8 text-center text-gray-500">
-          Sign in to continue
+          Create your account
         </p>
 
         <form className="space-y-4">
+          <input
+            type="text"
+            placeholder="Full Name"
+            className="w-full rounded-lg border p-3 outline-none focus:ring-2 focus:ring-black"
+          />
+
           <input
             type="email"
             placeholder="Email"
@@ -31,31 +37,17 @@ export default function LoginPage() {
             type="submit"
             className="w-full rounded-lg bg-black py-3 font-medium text-white transition hover:bg-gray-800"
           >
-            Login
+            Create Account
           </button>
         </form>
 
-        <div className="my-6 flex items-center">
-          <div className="h-px flex-1 bg-gray-300" />
-          <span className="mx-4 text-sm text-gray-500">
-            OR
-          </span>
-          <div className="h-px flex-1 bg-gray-300" />
-        </div>
-
-        <button
-          className="w-full rounded-lg border py-3 font-medium transition hover:bg-gray-100"
-        >
-          Continue with Google
-        </button>
-
         <p className="mt-6 text-center text-sm text-gray-600">
-          Don't have an account?{" "}
+          Already have an account?{" "}
           <Link
-            href="/register"
+            href="/login"
             className="font-semibold text-black"
           >
-            Register
+            Login
           </Link>
         </p>
       </div>

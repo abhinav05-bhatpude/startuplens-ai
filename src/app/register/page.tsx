@@ -1,8 +1,56 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function RegisterPage() {
+  const router = useRouter();
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [loading, setLoading] = useState(false);
+
+  async function handleSubmit(
+    e: React.FormEvent<HTMLFormElement>
+  ) {
+    e.preventDefault();
+
+    setLoading(true);
+
+    try {
+      const response = await fetch("/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        alert(data.message);
+        return;
+      }
+
+      alert("Registration successful!");
+
+      router.push("/login");
+    } catch (error) {
+      console.error(error);
+      alert("Something went wrong.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <main className="flex min-h-screen items-center justify-center bg-gray-100 px-4">
       <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-lg">
@@ -14,30 +62,48 @@ export default function RegisterPage() {
           Create your account
         </p>
 
-        <form className="space-y-4">
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-4"
+        >
           <input
             type="text"
             placeholder="Full Name"
-            className="w-full rounded-lg border p-3 outline-none focus:ring-2 focus:ring-black"
+            value={name}
+            onChange={(e) =>
+              setName(e.target.value)
+            }
+            className="w-full rounded-lg border p-3"
           />
 
           <input
             type="email"
             placeholder="Email"
-            className="w-full rounded-lg border p-3 outline-none focus:ring-2 focus:ring-black"
+            value={email}
+            onChange={(e) =>
+              setEmail(e.target.value)
+            }
+            className="w-full rounded-lg border p-3"
           />
 
           <input
             type="password"
             placeholder="Password"
-            className="w-full rounded-lg border p-3 outline-none focus:ring-2 focus:ring-black"
+            value={password}
+            onChange={(e) =>
+              setPassword(e.target.value)
+            }
+            className="w-full rounded-lg border p-3"
           />
 
           <button
             type="submit"
-            className="w-full rounded-lg bg-black py-3 font-medium text-white transition hover:bg-gray-800"
+            disabled={loading}
+            className="w-full rounded-lg bg-black py-3 text-white disabled:opacity-50"
           >
-            Create Account
+            {loading
+              ? "Creating Account..."
+              : "Create Account"}
           </button>
         </form>
 

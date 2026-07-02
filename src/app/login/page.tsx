@@ -1,8 +1,49 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
+import { signIn } from "next-auth/react";
 
 export default function LoginPage() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] =
+    useState("");
+
+  const [loading, setLoading] =
+    useState(false);
+
+  async function handleSubmit(
+    e: React.FormEvent<HTMLFormElement>
+  ) {
+    e.preventDefault();
+
+    setLoading(true);
+
+    const result = await signIn(
+      "credentials",
+      {
+        email,
+        password,
+        redirect: false,
+      }
+    );
+
+    setLoading(false);
+
+    if (result?.error) {
+      alert("Invalid email or password");
+      return;
+    }
+
+    window.location.href = "/dashboard";
+  }
+
+  async function handleGoogleLogin() {
+    await signIn("google", {
+      callbackUrl: "/dashboard",
+    });
+  }
+
   return (
     <main className="flex min-h-screen items-center justify-center bg-gray-100 px-4">
       <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-lg">
@@ -14,24 +55,38 @@ export default function LoginPage() {
           Sign in to continue
         </p>
 
-        <form className="space-y-4">
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-4"
+        >
           <input
             type="email"
             placeholder="Email"
-            className="w-full rounded-lg border p-3 outline-none focus:ring-2 focus:ring-black"
+            value={email}
+            onChange={(e) =>
+              setEmail(e.target.value)
+            }
+            className="w-full rounded-lg border p-3"
           />
 
           <input
             type="password"
             placeholder="Password"
-            className="w-full rounded-lg border p-3 outline-none focus:ring-2 focus:ring-black"
+            value={password}
+            onChange={(e) =>
+              setPassword(e.target.value)
+            }
+            className="w-full rounded-lg border p-3"
           />
 
           <button
             type="submit"
-            className="w-full rounded-lg bg-black py-3 font-medium text-white transition hover:bg-gray-800"
+            disabled={loading}
+            className="w-full rounded-lg bg-black py-3 text-white disabled:opacity-50"
           >
-            Login
+            {loading
+              ? "Signing In..."
+              : "Login"}
           </button>
         </form>
 
@@ -44,7 +99,8 @@ export default function LoginPage() {
         </div>
 
         <button
-          className="w-full rounded-lg border py-3 font-medium transition hover:bg-gray-100"
+          onClick={handleGoogleLogin}
+          className="w-full rounded-lg border py-3 transition hover:bg-gray-100"
         >
           Continue with Google
         </button>

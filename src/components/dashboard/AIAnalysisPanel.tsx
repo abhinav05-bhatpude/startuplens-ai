@@ -11,21 +11,18 @@ export default function AIAnalysisPanel() {
     useState("");
 
   const [loading, setLoading] = useState(false);
-
-  const [analysis, setAnalysis] =
-    useState("");
+  const [analysis, setAnalysis] = useState("");
 
   async function handleAnalyze() {
     try {
       setLoading(true);
 
-      const response =
-        await analyzeStartup({
-          startupName,
-          problem,
-          solution,
-          targetAudience,
-        });
+      const response = await analyzeStartup({
+        startupName,
+        problem,
+        solution,
+        targetAudience,
+      });
 
       if (!response.success) {
         alert(response.message);
@@ -89,22 +86,22 @@ export default function AIAnalysisPanel() {
         <button
           onClick={handleAnalyze}
           disabled={loading}
-          className="w-full rounded-lg bg-black py-3 font-semibold text-white disabled:opacity-50"
+          className="w-full rounded-lg bg-black py-3 font-semibold text-white transition hover:bg-gray-800 disabled:opacity-50"
         >
           {loading
-            ? "Analyzing..."
+            ? "Analyzing Startup..."
             : "Analyze with AI"}
         </button>
 
         {analysis && (
-          <div className="mt-6 rounded-lg border bg-gray-50 p-4">
-            <h3 className="mb-2 font-semibold">
-              AI Response Received ✅
+          <div className="mt-8 rounded-xl border bg-gray-50 p-6">
+            <h3 className="mb-4 text-xl font-bold">
+              📊 AI Startup Analysis
             </h3>
 
-            <p className="text-sm text-gray-600">
-              Analysis generated successfully.
-            </p>
+            <div className="prose prose-sm max-w-none whitespace-pre-wrap">
+              {analysis}
+            </div>
           </div>
         )}
       </div>

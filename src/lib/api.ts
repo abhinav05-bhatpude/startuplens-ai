@@ -26,6 +26,23 @@ export async function createIdea(data: {
   return response.json();
 }
 
+export async function analyzeStartup(data: {
+  startupName: string;
+  problem: string;
+  solution: string;
+  targetAudience: string;
+}) {
+  const response = await fetch("/api/analyze", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  return response.json();
+}
+
 export async function getIdea(id: string) {
   const response = await fetch(`/api/ideas/${id}`);
 

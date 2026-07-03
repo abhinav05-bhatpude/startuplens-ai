@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { analyzeStartup } from "@/lib/api";
 
 export default function AIAnalysisPanel() {
   const [startupName, setStartupName] = useState("");
@@ -9,7 +10,36 @@ export default function AIAnalysisPanel() {
   const [targetAudience, setTargetAudience] =
     useState("");
 
-  const [loading] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const [analysis, setAnalysis] =
+    useState("");
+
+  async function handleAnalyze() {
+    try {
+      setLoading(true);
+
+      const response =
+        await analyzeStartup({
+          startupName,
+          problem,
+          solution,
+          targetAudience,
+        });
+
+      if (!response.success) {
+        alert(response.message);
+        return;
+      }
+
+      setAnalysis(response.data);
+    } catch (error) {
+      console.error(error);
+      alert("Failed to analyze startup.");
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <div className="rounded-xl border bg-white p-6 shadow-sm">
@@ -17,7 +47,7 @@ export default function AIAnalysisPanel() {
         🤖 AI Startup Analyzer
       </h2>
 
-      <form className="space-y-4">
+      <div className="space-y-4">
         <input
           type="text"
           placeholder="Startup Name"
@@ -57,15 +87,27 @@ export default function AIAnalysisPanel() {
         />
 
         <button
-          type="button"
+          onClick={handleAnalyze}
           disabled={loading}
-          className="w-full rounded-lg bg-black py-3 font-semibold text-white transition hover:bg-gray-800 disabled:opacity-50"
+          className="w-full rounded-lg bg-black py-3 font-semibold text-white disabled:opacity-50"
         >
           {loading
             ? "Analyzing..."
             : "Analyze with AI"}
         </button>
-      </form>
+
+        {analysis && (
+          <div className="mt-6 rounded-lg border bg-gray-50 p-4">
+            <h3 className="mb-2 font-semibold">
+              AI Response Received ✅
+            </h3>
+
+            <p className="text-sm text-gray-600">
+              Analysis generated successfully.
+            </p>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

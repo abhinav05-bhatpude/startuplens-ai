@@ -6,6 +6,7 @@ import Sidebar from "@/components/dashboard/Sidebar";
 import DashboardNavbar from "@/components/dashboard/DashboardNavbar";
 import IdeaCard from "@/components/dashboard/IdeaCard";
 import CreateIdeaModal from "@/components/dashboard/CreateIdeaModal";
+import AIAnalysisPanel from "@/components/dashboard/AIAnalysisPanel";
 
 import { deleteIdea, getIdeas } from "@/lib/api";
 
@@ -20,29 +21,29 @@ export default function DashboardPage() {
   const [ideas, setIdeas] = useState<StartupIdea[]>([]);
   const [loading, setLoading] = useState(true);
 
- async function fetchIdeas() {
-  try {
-    setLoading(true);
+  async function fetchIdeas() {
+    try {
+      setLoading(true);
 
-    const response = await getIdeas();
+      const response = await getIdeas();
 
-    if (response.status === 401) {
-      window.location.href = "/login";
-      return;
+      if (response.status === 401) {
+        window.location.href = "/login";
+        return;
+      }
+
+      if (!response.ok) {
+        alert(response.data.message);
+        return;
+      }
+
+      setIdeas(response.data.data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
     }
-
-    if (!response.ok) {
-      alert(response.data.message);
-      return;
-    }
-
-    setIdeas(response.data.data);
-  } catch (error) {
-    console.error(error);
-  } finally {
-    setLoading(false);
   }
-}
 
   useEffect(() => {
     fetchIdeas();
@@ -76,7 +77,9 @@ export default function DashboardPage() {
         <DashboardNavbar />
 
         <main className="space-y-8 p-6">
-          <CreateIdeaModal onIdeaCreated={fetchIdeas} />
+          <CreateIdeaModal
+            onIdeaCreated={fetchIdeas}
+          />
 
           {loading ? (
             <div className="rounded-lg border bg-white p-6 text-center">
@@ -91,24 +94,33 @@ export default function DashboardPage() {
               </h2>
 
               <p className="mt-2 text-gray-500">
-                Create your first startup idea to get started.
+                Create your first startup idea to get
+                started.
               </p>
             </div>
           ) : (
-            <div className="grid gap-4 md:grid-cols-2">
-              {ideas.map((idea) => (
-                <IdeaCard
-                  key={idea.id}
-                  id={idea.id}
-                  title={idea.title}
-                  problem={idea.problem}
-                  solution={idea.solution}
-                  onEdit={handleEdit}
-                  onDelete={handleDelete}
-                />
-              ))}
+            <div>
+              <h2 className="mb-4 text-2xl font-bold">
+                Your Startup Ideas
+              </h2>
+
+              <div className="grid gap-4 md:grid-cols-2">
+                {ideas.map((idea) => (
+                  <IdeaCard
+                    key={idea.id}
+                    id={idea.id}
+                    title={idea.title}
+                    problem={idea.problem}
+                    solution={idea.solution}
+                    onEdit={handleEdit}
+                    onDelete={handleDelete}
+                  />
+                ))}
+              </div>
             </div>
           )}
+
+          <AIAnalysisPanel />
         </main>
       </div>
     </div>

@@ -38,6 +38,15 @@ export default function AIAnalysisPanel() {
     }
   }
 
+  async function handleCopy() {
+    await navigator.clipboard.writeText(analysis);
+    alert("Analysis copied to clipboard!");
+  }
+
+  function handleClear() {
+    setAnalysis("");
+  }
+
   return (
     <div className="rounded-xl border bg-white p-6 shadow-sm">
       <h2 className="mb-6 text-2xl font-bold">
@@ -86,21 +95,41 @@ export default function AIAnalysisPanel() {
         <button
           onClick={handleAnalyze}
           disabled={loading}
-          className="w-full rounded-lg bg-black py-3 font-semibold text-white transition hover:bg-gray-800 disabled:opacity-50"
+          className="w-full rounded-lg bg-black py-3 font-semibold text-white transition hover:bg-gray-800 disabled:cursor-not-allowed disabled:opacity-50"
         >
           {loading
-            ? "Analyzing Startup..."
-            : "Analyze with AI"}
+            ? "🤖 Gemini is analyzing..."
+            : "🚀 Analyze with AI"}
         </button>
 
         {analysis && (
           <div className="mt-8 rounded-xl border bg-gray-50 p-6">
-            <h3 className="mb-4 text-xl font-bold">
-              📊 AI Startup Analysis
-            </h3>
+            <div className="mb-4 flex items-center justify-between">
+              <h3 className="text-xl font-bold">
+                📊 AI Startup Analysis
+              </h3>
 
-            <div className="prose prose-sm max-w-none whitespace-pre-wrap">
-              {analysis}
+              <div className="flex gap-2">
+                <button
+                  onClick={handleCopy}
+                  className="rounded-lg bg-blue-600 px-4 py-2 text-sm text-white hover:bg-blue-700"
+                >
+                  📋 Copy
+                </button>
+
+                <button
+                  onClick={handleClear}
+                  className="rounded-lg bg-red-600 px-4 py-2 text-sm text-white hover:bg-red-700"
+                >
+                  🗑️ Clear
+                </button>
+              </div>
+            </div>
+
+            <div className="max-h-[500px] overflow-y-auto rounded-lg border bg-white p-5">
+              <pre className="whitespace-pre-wrap font-sans text-sm leading-7">
+                {analysis}
+              </pre>
             </div>
           </div>
         )}

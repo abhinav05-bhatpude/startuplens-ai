@@ -39,152 +39,179 @@ export default function AIAnalysisPanel() {
   }
 
   async function handleCopy() {
-    try {
-      await navigator.clipboard.writeText(
-        analysis
-      );
-      alert("Analysis copied successfully!");
-    } catch {
-      alert("Failed to copy analysis.");
-    }
+    await navigator.clipboard.writeText(analysis);
+    alert("Business plan copied!");
   }
 
   function handleClear() {
     setAnalysis("");
   }
 
+  function parseSections(text: string) {
+    const matches = text.matchAll(
+      /^# (.+?)\n([\s\S]*?)(?=^# |\Z)/gm
+    );
+
+    return Array.from(matches).map((match) => ({
+      title: match[1].trim(),
+      content: match[2].trim(),
+    }));
+  }
+
+  function getEmoji(title: string) {
+    switch (title.toLowerCase()) {
+      case "executive summary":
+        return "📄";
+
+      case "market validation":
+        return "📊";
+
+      case "competitor insights":
+        return "🏆";
+
+      case "strengths":
+        return "💪";
+
+      case "weaknesses":
+        return "⚠️";
+
+      case "opportunities":
+        return "🚀";
+
+      case "risks":
+        return "🔥";
+
+      case "mvp plan":
+        return "🛠";
+
+      case "monetization strategy":
+        return "💰";
+
+      case "90-day launch roadmap":
+        return "🗓";
+
+      default:
+        return "📌";
+    }
+  }
+
+  const sections = analysis
+    ? parseSections(analysis)
+    : [];
+
   return (
     <section className="rounded-3xl border border-slate-200 bg-white shadow-sm">
-      {/* Header */}
       <div className="rounded-t-3xl bg-gradient-to-r from-indigo-600 via-violet-600 to-sky-500 p-8 text-white">
-        <div className="flex items-center gap-4">
-          <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white/20 text-3xl backdrop-blur">
-            🤖
-          </div>
+        <h2 className="text-3xl font-bold">
+          🤖 AI Business Planner
+        </h2>
 
-          <div>
-            <h2 className="text-3xl font-bold">
-              AI Business Planner
-            </h2>
-
-            <p className="mt-1 text-indigo-100">
-              Validate your startup idea with
-              Gemini AI.
-            </p>
-          </div>
-        </div>
+        <p className="mt-2 text-indigo-100">
+          Generate a complete startup business
+          plan powered by Gemini AI.
+        </p>
       </div>
 
       <div className="space-y-6 p-8">
-        <div className="grid gap-6 md:grid-cols-2">
-          <div>
-            <label className="mb-2 block text-sm font-semibold text-slate-600">
-              Startup Name
-            </label>
+        <input
+          type="text"
+          placeholder="Startup Name"
+          value={startupName}
+          onChange={(e) =>
+            setStartupName(e.target.value)
+          }
+          className="w-full rounded-2xl border border-slate-200 bg-slate-50 p-4 outline-none focus:border-indigo-500"
+        />
 
-            <input
-              type="text"
-              placeholder="Ex. MedScan AI"
-              value={startupName}
-              onChange={(e) =>
-                setStartupName(e.target.value)
-              }
-              className="w-full rounded-2xl border border-slate-200 bg-slate-50 p-4 outline-none transition focus:border-indigo-500 focus:bg-white"
-            />
-          </div>
+        <textarea
+          placeholder="Problem"
+          value={problem}
+          onChange={(e) =>
+            setProblem(e.target.value)
+          }
+          className="min-h-32 w-full rounded-2xl border border-slate-200 bg-slate-50 p-4 outline-none focus:border-indigo-500"
+        />
 
-          <div>
-            <label className="mb-2 block text-sm font-semibold text-slate-600">
-              Target Audience
-            </label>
+        <textarea
+          placeholder="Solution"
+          value={solution}
+          onChange={(e) =>
+            setSolution(e.target.value)
+          }
+          className="min-h-32 w-full rounded-2xl border border-slate-200 bg-slate-50 p-4 outline-none focus:border-indigo-500"
+        />
 
-            <input
-              type="text"
-              placeholder="Students, Doctors..."
-              value={targetAudience}
-              onChange={(e) =>
-                setTargetAudience(e.target.value)
-              }
-              className="w-full rounded-2xl border border-slate-200 bg-slate-50 p-4 outline-none transition focus:border-indigo-500 focus:bg-white"
-            />
-          </div>
-        </div>
-
-        <div>
-          <label className="mb-2 block text-sm font-semibold text-slate-600">
-            Problem Statement
-          </label>
-
-          <textarea
-            placeholder="Describe the problem..."
-            value={problem}
-            onChange={(e) =>
-              setProblem(e.target.value)
-            }
-            className="min-h-36 w-full rounded-2xl border border-slate-200 bg-slate-50 p-4 outline-none transition focus:border-indigo-500 focus:bg-white"
-          />
-        </div>
-
-        <div>
-          <label className="mb-2 block text-sm font-semibold text-slate-600">
-            Proposed Solution
-          </label>
-
-          <textarea
-            placeholder="Describe your solution..."
-            value={solution}
-            onChange={(e) =>
-              setSolution(e.target.value)
-            }
-            className="min-h-36 w-full rounded-2xl border border-slate-200 bg-slate-50 p-4 outline-none transition focus:border-indigo-500 focus:bg-white"
-          />
-        </div>
+        <input
+          type="text"
+          placeholder="Target Audience"
+          value={targetAudience}
+          onChange={(e) =>
+            setTargetAudience(e.target.value)
+          }
+          className="w-full rounded-2xl border border-slate-200 bg-slate-50 p-4 outline-none focus:border-indigo-500"
+        />
 
         <button
           onClick={handleAnalyze}
           disabled={loading}
-          className="w-full rounded-2xl bg-gradient-to-r from-indigo-600 via-violet-600 to-sky-500 py-4 text-lg font-semibold text-white shadow-lg transition hover:scale-[1.01] disabled:cursor-not-allowed disabled:opacity-60"
+          className="w-full rounded-2xl bg-gradient-to-r from-indigo-600 via-violet-600 to-sky-500 py-4 text-lg font-semibold text-white transition hover:scale-[1.01] disabled:opacity-60"
         >
           {loading
-            ? "🤖 Generating Business Analysis..."
-            : "🚀 Analyze Startup"}
+            ? "🤖 Generating Business Plan..."
+            : "🚀 Generate Business Plan"}
         </button>
 
         {analysis && (
-          <div className="mt-8 rounded-3xl border border-slate-200 bg-slate-50">
-            <div className="flex items-center justify-between border-b border-slate-200 p-6">
-              <div>
-                <h3 className="text-2xl font-bold text-slate-800">
-                  📊 AI Report
-                </h3>
+          <div className="mt-10 space-y-6">
 
-                <p className="mt-1 text-sm text-slate-500">
-                  Generated using Gemini AI
+            <div className="flex items-center justify-between">
+
+              <div>
+                <h2 className="text-3xl font-bold text-slate-800">
+                  📑 AI Business Report
+                </h2>
+
+                <p className="mt-1 text-slate-500">
+                  Complete business plan generated
+                  using Gemini AI
                 </p>
               </div>
 
               <div className="flex gap-3">
                 <button
                   onClick={handleCopy}
-                  className="rounded-xl bg-sky-500 px-5 py-3 font-medium text-white transition hover:bg-sky-600"
+                  className="rounded-xl bg-sky-500 px-5 py-3 font-medium text-white hover:bg-sky-600"
                 >
                   📋 Copy
                 </button>
 
                 <button
                   onClick={handleClear}
-                  className="rounded-xl bg-red-500 px-5 py-3 font-medium text-white transition hover:bg-red-600"
+                  className="rounded-xl bg-red-500 px-5 py-3 font-medium text-white hover:bg-red-600"
                 >
                   🗑 Clear
                 </button>
               </div>
+
             </div>
 
-            <div className="max-h-[650px] overflow-y-auto p-8">
-              <pre className="whitespace-pre-wrap font-sans leading-8 text-slate-700">
-                {analysis}
-              </pre>
-            </div>
+            {sections.map((section) => (
+              <div
+                key={section.title}
+                className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm"
+              >
+                <h3 className="mb-6 text-2xl font-bold text-slate-800">
+                  {getEmoji(section.title)}{" "}
+                  {section.title}
+                </h3>
+
+                <div className="h-px bg-slate-200 mb-6" />
+
+                <div className="whitespace-pre-wrap text-[17px] leading-9 text-slate-700">
+                  {section.content}
+                </div>
+              </div>
+            ))}
           </div>
         )}
       </div>

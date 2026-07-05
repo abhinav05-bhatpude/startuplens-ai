@@ -15,9 +15,13 @@ export async function analyzeStartup(
   input: StartupAnalysisInput
 ) {
   const prompt = `
-You are an expert startup consultant.
+You are an experienced Startup Founder, Product Manager, Venture Capital Investor, and Business Consultant.
 
-Analyze the following startup idea.
+Your job is to generate a complete business plan for the startup idea below.
+
+==============================
+STARTUP DETAILS
+==============================
 
 Startup Name:
 ${input.startupName}
@@ -31,19 +35,80 @@ ${input.solution}
 Target Audience:
 ${input.targetAudience}
 
-Return your response in the following format:
+==============================
+INSTRUCTIONS
+==============================
 
-## Market Validation
+Write a detailed business report.
 
-## Competitor Insights
+Use clear headings.
 
-## Strengths
+Avoid generic answers.
 
-## Weaknesses
+Give practical advice.
 
-## Opportunities
+Keep every section between 120 and 250 words.
 
-## Risks
+==============================
+OUTPUT FORMAT
+==============================
+
+# Executive Summary
+
+Provide a short overview of the startup.
+
+# Market Validation
+
+Explain whether the problem is worth solving and discuss market demand.
+
+# Competitor Insights
+
+Mention existing competitors and how this startup can differentiate itself.
+
+# Strengths
+
+List the biggest strengths.
+
+# Weaknesses
+
+Mention possible weaknesses.
+
+# Opportunities
+
+Explain future opportunities.
+
+# Risks
+
+Describe business and technical risks.
+
+# MVP Plan
+
+Create an MVP containing:
+
+- Core Features
+- Nice-to-Have Features
+- Suggested Tech Stack
+- Estimated Development Phases
+
+# Monetization Strategy
+
+Recommend:
+
+- Revenue Model
+- Pricing Strategy
+- Customer Acquisition
+
+# 90-Day Launch Roadmap
+
+Break it into:
+
+Month 1
+
+Month 2
+
+Month 3
+
+Finish with a short conclusion encouraging the founder while remaining realistic.
 `;
 
   const response = await ai.models.generateContent({

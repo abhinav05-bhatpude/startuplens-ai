@@ -41,16 +41,19 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const analysis = await analyzeStartup({
-      startupName,
-      problem,
-      solution,
-      targetAudience,
-    });
+    const businessPlan =
+      await analyzeStartup({
+        startupName,
+        problem,
+        solution,
+        targetAudience,
+      });
 
     return NextResponse.json({
       success: true,
-      data: analysis,
+      message:
+        "Business plan generated successfully.",
+      data: businessPlan,
     });
   } catch (error) {
     console.error(error);
@@ -58,7 +61,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       {
         success: false,
-        message: "Failed to analyze startup idea",
+        message:
+          "Failed to generate business plan.",
       },
       { status: 500 }
     );

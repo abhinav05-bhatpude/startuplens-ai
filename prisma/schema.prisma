@@ -15,29 +15,31 @@ model User {
   emailVerified DateTime?
   image         String?
 
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  accounts      Account[]
-  sessions      Session[]
+  accounts Account[]
+  sessions Session[]
 
-  ideas         StartupIdea[]
-  analyses      Analysis[]
+  ideas    StartupIdea[]
+  analyses Analysis[]
 }
 
 model Account {
-  id                 String  @id @default(cuid())
-  userId             String
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String? @db.Text
-  access_token       String? @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String? @db.Text
-  session_state      String?
+  id                String @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+
+  refresh_token String? @db.Text
+  access_token  String? @db.Text
+
+  expires_at    Int?
+  token_type    String?
+  scope         String?
+  id_token      String? @db.Text
+  session_state String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -45,45 +47,67 @@ model Account {
 }
 
 model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique
-  userId       String
-  expires      DateTime
+  id           String @id @default(cuid())
+  sessionToken String @unique
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  expires DateTime
 }
 
 model VerificationToken {
   identifier String
-  token      String @unique
+  token      String   @unique
   expires    DateTime
 
   @@unique([identifier, token])
 }
 
 model StartupIdea {
-  id          String   @id @default(cuid())
-  title       String
-  problem     String
-  solution    String
-  createdAt   DateTime @default(now())
+  id String @id @default(cuid())
+
+  title    String
+  problem  String
+  solution String
+
+  createdAt DateTime @default(now())
 
   userId String
-  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   analyses Analysis[]
 }
 
 model Analysis {
-  id             String   @id @default(cuid())
-  marketAnalysis String
-  mvpPlan        String
-  monetization   String
-  roadmap        String
-  createdAt      DateTime @default(now())
+  id String @id @default(cuid())
+
+  executiveSummary String @db.Text
+
+  marketValidation String @db.Text
+
+  competitorInsights String @db.Text
+
+  strengths String @db.Text
+
+  weaknesses String @db.Text
+
+  opportunities String @db.Text
+
+  risks String @db.Text
+
+  mvpPlan String @db.Text
+
+  monetization String @db.Text
+
+  roadmap String @db.Text
+
+  overallScore String
+
+  createdAt DateTime @default(now())
 
   userId String
-  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   startupIdeaId String
   startupIdea   StartupIdea @relation(fields: [startupIdeaId], references: [id], onDelete: Cascade)

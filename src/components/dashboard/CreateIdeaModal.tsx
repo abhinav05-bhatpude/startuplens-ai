@@ -13,7 +13,9 @@ export default function CreateIdeaModal({
   const [title, setTitle] = useState("");
   const [problem, setProblem] = useState("");
   const [solution, setSolution] = useState("");
-  const [loading, setLoading] = useState(false);
+
+  const [loading, setLoading] =
+    useState(false);
 
   async function handleSubmit(
     e: React.FormEvent<HTMLFormElement>
@@ -27,7 +29,6 @@ export default function CreateIdeaModal({
         title,
         problem,
         solution,
-      
       });
 
       setTitle("");
@@ -44,43 +45,63 @@ export default function CreateIdeaModal({
   }
 
   return (
-    <div className="rounded-xl border bg-white p-6">
-      <h2 className="mb-4 text-xl font-bold">
-        Create Startup Idea
-      </h2>
+    <div className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
+      <div className="mb-8 flex items-center gap-4">
+        <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-r from-indigo-600 via-violet-600 to-sky-500 text-2xl text-white">
+          🚀
+        </div>
+
+        <div>
+          <h2 className="text-3xl font-bold text-slate-900">
+            Create Startup Idea
+          </h2>
+
+          <p className="text-slate-500">
+            Add your next billion-dollar idea.
+          </p>
+        </div>
+      </div>
 
       <form
         onSubmit={handleSubmit}
-        className="space-y-4"
+        className="space-y-6"
       >
         <input
           type="text"
-          placeholder="Startup Title"
+          placeholder="Startup Name"
           value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          className="w-full rounded-lg border p-3"
+          onChange={(e) =>
+            setTitle(e.target.value)
+          }
+          className="w-full rounded-2xl border border-slate-200 bg-slate-50 p-4 outline-none transition focus:border-indigo-500 focus:bg-white"
         />
 
         <textarea
-          placeholder="Problem"
+          placeholder="Describe the problem..."
           value={problem}
-          onChange={(e) => setProblem(e.target.value)}
-          className="w-full rounded-lg border p-3"
+          onChange={(e) =>
+            setProblem(e.target.value)
+          }
+          className="min-h-32 w-full rounded-2xl border border-slate-200 bg-slate-50 p-4 outline-none transition focus:border-indigo-500 focus:bg-white"
         />
 
         <textarea
-          placeholder="Solution"
+          placeholder="Describe your solution..."
           value={solution}
-          onChange={(e) => setSolution(e.target.value)}
-          className="w-full rounded-lg border p-3"
+          onChange={(e) =>
+            setSolution(e.target.value)
+          }
+          className="min-h-32 w-full rounded-2xl border border-slate-200 bg-slate-50 p-4 outline-none transition focus:border-indigo-500 focus:bg-white"
         />
 
         <button
           type="submit"
           disabled={loading}
-          className="rounded-lg bg-black px-4 py-2 text-white disabled:opacity-50"
+          className="w-full rounded-2xl bg-gradient-to-r from-indigo-600 via-violet-600 to-sky-500 py-4 text-lg font-semibold text-white shadow-lg transition hover:scale-[1.01] disabled:opacity-60"
         >
-          {loading ? "Creating..." : "Create Idea"}
+          {loading
+            ? "Creating Startup..."
+            : "Create Startup"}
         </button>
       </form>
     </div>

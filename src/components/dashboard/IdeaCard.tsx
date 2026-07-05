@@ -18,39 +18,57 @@ export default function IdeaCard({
   onDelete,
 }: IdeaCardProps) {
   return (
-    <div className="rounded-xl border bg-white p-6 shadow-sm">
-      <h3 className="text-xl font-bold">
-        {title}
-      </h3>
+    <div className="group overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+      <div className="h-2 bg-gradient-to-r from-indigo-600 via-violet-600 to-sky-500" />
 
-      <p className="mt-3 text-gray-600">
-        <span className="font-semibold">
-          Problem:
-        </span>{" "}
-        {problem}
-      </p>
+      <div className="p-6">
+        <div className="mb-6 flex items-center justify-between">
+          <h3 className="text-2xl font-bold text-slate-800">
+            {title}
+          </h3>
 
-      <p className="mt-2 text-gray-600">
-        <span className="font-semibold">
-          Solution:
-        </span>{" "}
-        {solution}
-      </p>
+          <span className="rounded-full bg-indigo-100 px-3 py-1 text-xs font-semibold text-indigo-700">
+            Startup
+          </span>
+        </div>
 
-      <div className="mt-6 flex gap-3">
-        <button
-          onClick={() => onEdit(id)}
-          className="rounded-lg bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-700"
-        >
-          Edit
-        </button>
+        <div className="space-y-5">
+          <div>
+            <p className="mb-2 text-sm font-semibold uppercase tracking-wide text-slate-500">
+              Problem
+            </p>
 
-        <button
-          onClick={() => onDelete(id)}
-          className="rounded-lg bg-red-600 px-4 py-2 text-white transition hover:bg-red-700"
-        >
-          Delete
-        </button>
+            <p className="leading-7 text-slate-700">
+              {problem}
+            </p>
+          </div>
+
+          <div>
+            <p className="mb-2 text-sm font-semibold uppercase tracking-wide text-slate-500">
+              Solution
+            </p>
+
+            <p className="leading-7 text-slate-700">
+              {solution}
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-8 flex gap-3">
+          <button
+            onClick={() => onEdit(id)}
+            className="flex-1 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 py-3 font-semibold text-white transition hover:scale-[1.02]"
+          >
+            ✏️ Edit
+          </button>
+
+          <button
+            onClick={() => onDelete(id)}
+            className="flex-1 rounded-xl border border-red-200 bg-red-50 py-3 font-semibold text-red-600 transition hover:bg-red-100"
+          >
+            🗑 Delete
+          </button>
+        </div>
       </div>
     </div>
   );

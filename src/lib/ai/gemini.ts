@@ -320,34 +320,150 @@ Explain how to scale from:
 
 ---
 
-# 90-Day Launch Roadmap
+# Go-To-Market Strategy
 
-Break into:
+Create a complete launch strategy.
 
-Month 1
+## Ideal First Customers
 
-Month 2
+Describe the exact first customers.
 
-Month 3
+Include:
 
-Provide actionable milestones.
+- Age
+- Profession
+- Industry
+- Pain Points
 
 ---
 
-# Final Recommendation
+## Best Marketing Channels
 
-Should this startup be built?
+Recommend the best channels.
 
-Why?
+Possible channels:
 
-What should the founder validate first?
+- LinkedIn
+- Twitter / X
+- Reddit
+- Product Hunt
+- Hacker News
+- SEO
+- YouTube
+- Email Marketing
+- Communities
+- Discord
 
-Suggest the next three concrete actions.
+Explain WHY every channel is suitable.
 
-End with:
+---
 
-Overall Viability Score:
-X/10
+## Product Launch Platforms
+
+Recommend where the startup should launch.
+
+Examples:
+
+- Product Hunt
+
+- Reddit
+
+- Hacker News
+
+- LinkedIn
+
+- BetaList
+
+- Indie Hackers
+
+Explain launch order.
+
+---
+
+## First 100 Users Strategy
+
+Provide a realistic plan.
+
+---
+
+## First 1000 Users Strategy
+
+Explain how to scale after initial traction.
+
+---
+
+## Key Business Metrics
+
+Recommend tracking:
+
+- CAC
+- LTV
+- Churn
+- MRR
+- ARR
+- Activation Rate
+- Retention
+- Conversion Rate
+
+Explain why each metric matters.
+
+---
+
+## Launch Checklist
+
+Create a checklist before launch.
+
+Examples:
+
+- Landing Page
+
+- Authentication
+
+- Pricing
+
+- Analytics
+
+- Terms & Privacy
+
+- Error Monitoring
+
+- Customer Support
+
+- Feedback Collection
+
+---
+
+# Founder Action Plan
+
+Summarize:
+
+Top 5 priorities
+
+Top 5 mistakes to avoid
+
+Immediate next steps
+
+Long-term recommendations
+
+Finish with:
+
+Overall Startup Score:
+X / 10
+
+Investor Recommendation:
+
+- Build Immediately
+
+or
+
+- Validate First
+
+or
+
+- Pivot
+
+Explain your decision.
+
 `;
 
   const response = await ai.models.generateContent({

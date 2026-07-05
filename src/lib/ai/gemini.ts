@@ -223,15 +223,100 @@ Include roles like:
 
 ---
 
-# Monetization Strategy
+# Smart Monetization Strategy
+
+First determine what type of startup this is.
+
+Possible startup categories:
+
+- AI SaaS
+- SaaS
+- Marketplace
+- Ecommerce
+- FinTech
+- EdTech
+- HealthTech
+- Consumer App
+- B2B
+- B2C
+- Developer Tool
+- Productivity Tool
+- Creator Platform
+
+Identify the most appropriate category.
+
+Then generate:
+
+## Recommended Revenue Model
+
+Explain why this model is the best fit.
+
+Examples:
+
+- Subscription
+- Freemium
+- Commission
+- Marketplace Fees
+- Enterprise Licensing
+- Usage-Based Pricing
+- Advertising
+- One-Time Purchase
+
+## Pricing Strategy
+
+Recommend realistic pricing.
+
+Include:
+
+Free Plan
+
+Starter
+
+Professional
+
+Business
+
+Enterprise
+
+## Revenue Projection
+
+Estimate:
+
+Year 1
+
+Year 2
+
+Year 3
+
+Mention assumptions.
+
+## Customer Acquisition
 
 Recommend:
 
-- Revenue Model
-- Pricing Strategy
-- Customer Acquisition
-- Marketing Channels
-- Growth Strategy
+- SEO
+- Social Media
+- Product Hunt
+- Cold Email
+- Communities
+- Partnerships
+- Content Marketing
+
+Explain why each channel fits.
+
+## Growth Strategy
+
+Explain how to scale from:
+
+100 users
+
+1,000 users
+
+10,000 users
+
+100,000 users
+
+1 Million users
 
 ---
 

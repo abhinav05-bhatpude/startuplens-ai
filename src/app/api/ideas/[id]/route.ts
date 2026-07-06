@@ -90,3 +90,45 @@ export async function PUT(
     );
   }
 }
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: Params
+) {
+  try {
+    const { id } = await params;
+
+    const idea = await prisma.startupIdea.findUnique({
+      where: { id },
+    });
+
+    if (!idea) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Startup idea not found",
+        },
+        { status: 404 }
+      );
+    }
+
+    await prisma.startupIdea.delete({
+      where: { id },
+    });
+
+    return NextResponse.json({
+      success: true,
+      message: "Startup idea deleted successfully",
+    });
+  } catch (error) {
+    console.error(error);
+
+    return NextResponse.json(
+      {
+        success: false,
+        message: "Failed to delete startup idea",
+      },
+      { status: 500 }
+    );
+  }
+}

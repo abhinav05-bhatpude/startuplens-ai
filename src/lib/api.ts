@@ -73,5 +73,11 @@ export async function deleteIdea(id: string) {
     method: "DELETE",
   });
 
-  return response.json();
+  if (response.status === 204) {
+    return { success: true };
+  }
+
+  const text = await response.text();
+
+  return text ? JSON.parse(text) : { success: response.ok };
 }

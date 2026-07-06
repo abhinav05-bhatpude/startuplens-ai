@@ -100,7 +100,10 @@ export default function AIAnalysisPanel() {
     : [];
 
   return (
-    <section className="rounded-3xl border border-slate-200 bg-white shadow-sm">
+   <section
+  id="ai-analysis"
+  className="rounded-3xl border border-slate-200 bg-white shadow-sm"
+>
       <div className="rounded-t-3xl bg-gradient-to-r from-indigo-600 via-violet-600 to-sky-500 p-8 text-white">
         <h2 className="text-3xl font-bold">
           🤖 AI Business Planner

@@ -347,14 +347,21 @@ export default function DashboardPage() {
                 {ideas.map((idea) => (
 
                   <IdeaCard
-                    key={idea.id}
-                    id={idea.id}
-                    title={idea.title}
-                    problem={idea.problem}
-                    solution={idea.solution}
-                    onEdit={handleEdit}
-                    onDelete={handleDelete}
-                  />
+  key={idea.id}
+  id={idea.id}
+  title={idea.title}
+  problem={idea.problem}
+  solution={idea.solution}
+  onEdit={handleEdit}
+  onDelete={handleDelete}
+  onAnalyze={() => {
+    document
+      .getElementById("ai-analysis")
+      ?.scrollIntoView({
+        behavior: "smooth",
+      });
+  }}
+/>
 
                 ))}
 

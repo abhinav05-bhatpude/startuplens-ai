@@ -2,8 +2,40 @@
 
 import Sidebar from "@/components/dashboard/Sidebar";
 import DashboardNavbar from "@/components/dashboard/DashboardNavbar";
+import Link from "next/link";
 
 export default function DashboardPage() {
+  const cards = [
+    {
+      title: "Startup Ideas",
+      description: "Create and manage all your startup ideas.",
+      href: "/dashboard/startup-ideas",
+      icon: "💡",
+      color: "from-indigo-500 to-violet-500",
+    },
+    {
+      title: "AI Analysis",
+      description: "Validate your ideas using Gemini AI.",
+      href: "/dashboard/ai-analysis",
+      icon: "🤖",
+      color: "from-violet-500 to-sky-500",
+    },
+    {
+      title: "Business Plans",
+      description: "Generate investor-ready business plans.",
+      href: "/dashboard/business-plans",
+      icon: "📄",
+      color: "from-sky-500 to-cyan-500",
+    },
+    {
+      title: "Reports",
+      description: "View all generated startup reports.",
+      href: "/dashboard/reports",
+      icon: "📊",
+      color: "from-emerald-500 to-green-500",
+    },
+  ];
+
   return (
     <div className="flex min-h-screen bg-slate-50">
       <Sidebar />
@@ -13,105 +45,76 @@ export default function DashboardPage() {
 
         <main className="space-y-10 p-8">
 
-          {/* Hero */}
-
           <section className="rounded-3xl bg-gradient-to-r from-indigo-600 via-violet-600 to-sky-500 p-10 text-white shadow-xl">
 
-            <h1 className="text-4xl font-bold">
-              🚀 Welcome to StartupLens AI
+            <h1 className="text-5xl font-bold">
+              🚀 StartupLens AI
             </h1>
 
-            <p className="mt-3 max-w-3xl text-lg text-indigo-100">
-              Validate startup ideas, generate AI-powered business plans,
-              analyze competitors, and launch your startup faster.
+            <p className="mt-4 max-w-3xl text-lg text-indigo-100">
+              Build, validate and launch startup ideas using
+              AI-powered business intelligence.
             </p>
 
           </section>
 
-          {/* Statistics */}
+          <section>
 
-          <section className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+            <h2 className="mb-6 text-3xl font-bold text-slate-800">
+              Quick Access
+            </h2>
 
-            <div className="rounded-3xl bg-white p-7 shadow-sm">
-              <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-                Startup Ideas
-              </p>
+            <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
 
-              <h2 className="mt-3 text-4xl font-bold text-indigo-600">
-                💡
-              </h2>
-            </div>
+              {cards.map((card) => (
 
-            <div className="rounded-3xl bg-white p-7 shadow-sm">
-              <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-                AI Analysis
-              </p>
+                <Link
+                  key={card.href}
+                  href={card.href}
+                  className="group rounded-3xl bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
+                >
 
-              <h2 className="mt-3 text-4xl font-bold text-violet-600">
-                🤖
-              </h2>
-            </div>
+                  <div
+                    className={`mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-r ${card.color} text-3xl text-white`}
+                  >
+                    {card.icon}
+                  </div>
 
-            <div className="rounded-3xl bg-white p-7 shadow-sm">
-              <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-                Business Plans
-              </p>
+                  <h3 className="text-2xl font-bold text-slate-800">
+                    {card.title}
+                  </h3>
 
-              <h2 className="mt-3 text-4xl font-bold text-sky-600">
-                📄
-              </h2>
-            </div>
+                  <p className="mt-3 leading-7 text-slate-500">
+                    {card.description}
+                  </p>
 
-            <div className="rounded-3xl bg-white p-7 shadow-sm">
-              <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-                Reports
-              </p>
+                </Link>
 
-              <h2 className="mt-3 text-4xl font-bold text-emerald-600">
-                📊
-              </h2>
+              ))}
+
             </div>
 
           </section>
 
-          {/* Quick Actions */}
+          <section className="rounded-3xl bg-white p-8 shadow-sm">
 
-          <section className="grid gap-6 lg:grid-cols-2">
+            <h2 className="text-3xl font-bold text-slate-800">
+              📈 Platform Overview
+            </h2>
 
-            <div className="rounded-3xl bg-white p-8 shadow-sm">
+            <ul className="mt-6 space-y-4 text-lg text-slate-600">
 
-              <h2 className="text-2xl font-bold text-slate-800">
-                🚀 Quick Start
-              </h2>
+              <li>✅ Organize startup ideas</li>
 
-              <p className="mt-3 leading-8 text-slate-600">
-                Use the sidebar to create startup ideas, generate AI business
-                plans, manage reports and customize your workspace.
-              </p>
+              <li>✅ AI-powered validation</li>
 
-            </div>
+              <li>✅ Generate business plans</li>
 
-            <div className="rounded-3xl bg-white p-8 shadow-sm">
+              <li>✅ Save business reports</li>
 
-              <h2 className="text-2xl font-bold text-slate-800">
-                📈 Platform Overview
-              </h2>
+              <li>✅ Modern SaaS experience</li>
 
-              <ul className="mt-5 space-y-4 text-slate-600">
-
-                <li>✅ Create unlimited startup ideas</li>
-
-                <li>✅ AI-powered business validation</li>
-
-                <li>✅ Generate detailed business plans</li>
-
-                <li>✅ Store reports securely</li>
-
-                <li>✅ Modern SaaS dashboard</li>
-
-              </ul>
-
-            </div>
+            </ul>
 
           </section>
 

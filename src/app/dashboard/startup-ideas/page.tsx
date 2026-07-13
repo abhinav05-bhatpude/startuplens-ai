@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 import Sidebar from "@/components/dashboard/Sidebar";
 import DashboardNavbar from "@/components/dashboard/DashboardNavbar";
@@ -17,6 +18,8 @@ interface StartupIdea {
 }
 
 export default function StartupIdeasPage() {
+  const router = useRouter();
+
   const [ideas, setIdeas] = useState<StartupIdea[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -68,8 +71,8 @@ export default function StartupIdeasPage() {
     }
   }
 
-  function handleAnalyze() {
-    window.location.href = "/dashboard/ai-analysis";
+  function handleAnalyze(id: string) {
+    router.push(`/dashboard/ai-analysis?id=${id}`);
   }
 
   return (

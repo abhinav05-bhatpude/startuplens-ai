@@ -7,7 +7,7 @@ interface IdeaCardProps {
   solution: string;
   onEdit: (id: string) => void;
   onDelete: (id: string) => void;
-  onAnalyze: () => void;
+  onAnalyze: (id: string) => void;
 }
 
 export default function IdeaCard({
@@ -69,22 +69,22 @@ export default function IdeaCard({
         <div className="mt-8 grid grid-cols-3 gap-3">
 
           <button
-            onClick={onAnalyze}
-            className="rounded-xl bg-gradient-to-r from-indigo-600 via-violet-600 to-sky-500 py-3 font-semibold text-white hover:opacity-90"
+            onClick={() => onAnalyze(id)}
+            className="rounded-xl bg-gradient-to-r from-indigo-600 via-violet-600 to-sky-500 py-3 font-semibold text-white transition hover:opacity-90"
           >
             🤖 Analyze
           </button>
 
           <button
             onClick={() => onEdit(id)}
-            className="rounded-xl bg-slate-100 py-3 font-semibold hover:bg-slate-200"
+            className="rounded-xl bg-slate-100 py-3 font-semibold transition hover:bg-slate-200"
           >
             ✏️ Edit
           </button>
 
           <button
             onClick={() => onDelete(id)}
-            className="rounded-xl bg-red-500 py-3 font-semibold text-white hover:bg-red-600"
+            className="rounded-xl bg-red-500 py-3 font-semibold text-white transition hover:bg-red-600"
           >
             🗑 Delete
           </button>

@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import Sidebar from "@/components/dashboard/Sidebar";
 import DashboardNavbar from "@/components/dashboard/DashboardNavbar";
 import CreateIdeaModal from "@/components/dashboard/CreateIdeaModal";
+import EditIdeaModal from "@/components/dashboard/EditIdeaModal";
 import IdeaCard from "@/components/dashboard/IdeaCard";
 
 import { deleteIdea, getIdeas } from "@/lib/api";
@@ -22,6 +23,9 @@ export default function StartupIdeasPage() {
 
   const [ideas, setIdeas] = useState<StartupIdea[]>([]);
   const [loading, setLoading] = useState(true);
+
+  const [editingIdea, setEditingIdea] =
+    useState<StartupIdea | null>(null);
 
   async function fetchIdeas() {
     try {
@@ -52,7 +56,13 @@ export default function StartupIdeasPage() {
   }, []);
 
   function handleEdit(id: string) {
-    console.log("Edit:", id);
+    const selectedIdea = ideas.find(
+      (idea) => idea.id === id
+    );
+
+    if (!selectedIdea) return;
+
+    setEditingIdea(selectedIdea);
   }
 
   async function handleDelete(id: string) {
@@ -100,6 +110,17 @@ export default function StartupIdeasPage() {
           <CreateIdeaModal
             onIdeaCreated={fetchIdeas}
           />
+
+          {editingIdea && (
+            <EditIdeaModal
+              id={editingIdea.id}
+              initialTitle={editingIdea.title}
+              initialProblem={editingIdea.problem}
+              initialSolution={editingIdea.solution}
+              onClose={() => setEditingIdea(null)}
+              onIdeaUpdated={fetchIdeas}
+            />
+          )}
 
           <section>
 

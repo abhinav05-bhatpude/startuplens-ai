@@ -1,9 +1,69 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
+
 import Sidebar from "@/components/dashboard/Sidebar";
 import DashboardNavbar from "@/components/dashboard/DashboardNavbar";
+import BusinessPlanPanel from "@/components/dashboard/BusinessPlanPanel";
+
+import { getIdea } from "@/lib/api";
+
+interface StartupIdea {
+  id: string;
+  title: string;
+  problem: string;
+  solution: string;
+}
+
+interface Analysis {
+  id: string;
+  report: string;
+}
 
 export default function BusinessPlansPage() {
+  const searchParams = useSearchParams();
+
+  const startupId = searchParams.get("id");
+
+  const [idea, setIdea] = useState<StartupIdea | null>(null);
+  const [analysis, setAnalysis] = useState<Analysis | null>(null);
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadBusinessPlan() {
+      if (!startupId) {
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const ideaResponse = await getIdea(startupId);
+
+        if (ideaResponse.success) {
+          setIdea(ideaResponse.data);
+        }
+
+        const response = await fetch(
+          `/api/analysis/${startupId}`
+        );
+
+        const analysisResponse = await response.json();
+
+        if (analysisResponse.success) {
+          setAnalysis(analysisResponse.data);
+        }
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadBusinessPlan();
+  }, [startupId]);
+
   return (
     <div className="flex min-h-screen bg-slate-50">
       <Sidebar />
@@ -11,83 +71,91 @@ export default function BusinessPlansPage() {
       <div className="flex-1">
         <DashboardNavbar />
 
-        <main className="space-y-10 p-8">
+        <main className="space-y-8 p-8">
 
           <section className="rounded-3xl bg-gradient-to-r from-indigo-600 via-violet-600 to-sky-500 p-10 text-white shadow-xl">
 
             <h1 className="text-4xl font-bold">
-              📄 AI Business Plans
+              📄 Business Plans
             </h1>
 
-            <p className="mt-3 max-w-3xl text-lg text-indigo-100">
-              Generate investor-ready business plans using Gemini AI.
+            <p className="mt-3 text-lg text-indigo-100">
+              AI-generated startup execution plan.
             </p>
 
           </section>
 
-          <section className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          {loading ? (
 
-            <div className="rounded-3xl bg-white p-8 shadow-sm">
+            <div className="rounded-3xl bg-white p-10 shadow-sm">
 
-              <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-r from-indigo-600 to-violet-600 text-3xl text-white">
-                🤖
-              </div>
-
-              <h2 className="text-2xl font-bold text-slate-800">
-                AI Generated Plans
+              <h2 className="text-xl font-semibold">
+                Loading Business Plan...
               </h2>
 
-              <p className="mt-3 leading-7 text-slate-500">
-                Generate detailed startup business plans powered by Gemini AI.
+            </div>
+
+          ) : !idea || !analysis ? (
+
+            <div className="rounded-3xl bg-white p-10 shadow-sm">
+
+              <h2 className="text-2xl font-bold">
+                Business Plan Not Found
+              </h2>
+
+              <p className="mt-3 text-slate-500">
+                Generate an AI Analysis first.
               </p>
 
             </div>
 
-            <div className="rounded-3xl bg-white p-8 shadow-sm">
+          ) : (
 
-              <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-r from-violet-600 to-sky-500 text-3xl text-white">
-                📊
-              </div>
+            <>
+              <section className="rounded-3xl bg-white p-8 shadow-sm">
 
-              <h2 className="text-2xl font-bold text-slate-800">
-                Investor Reports
-              </h2>
+                <h2 className="mb-6 text-3xl font-bold">
+                  💡 Startup
+                </h2>
 
-              <p className="mt-3 leading-7 text-slate-500">
-                View startup validation, market analysis and funding readiness.
-              </p>
+                <div className="space-y-5">
 
-            </div>
+                  <div>
 
-            <div className="rounded-3xl bg-white p-8 shadow-sm">
+                    <p className="text-sm font-semibold uppercase text-slate-500">
+                      Startup Name
+                    </p>
 
-              <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-r from-sky-500 to-cyan-500 text-3xl text-white">
-                🚀
-              </div>
+                    <h3 className="mt-2 text-3xl font-bold">
+                      {idea.title}
+                    </h3>
 
-              <h2 className="text-2xl font-bold text-slate-800">
-                Launch Strategy
-              </h2>
+                  </div>
 
-              <p className="mt-3 leading-7 text-slate-500">
-                Receive AI-generated launch plans and growth strategies.
-              </p>
+                  <div>
 
-            </div>
+                    <p className="text-sm font-semibold uppercase text-slate-500">
+                      Problem
+                    </p>
 
-          </section>
+                    <p className="mt-2 leading-8 text-slate-700">
+                      {idea.problem}
+                    </p>
 
-          <section className="rounded-3xl bg-white p-10 text-center shadow-sm">
+                  </div>
 
-            <h2 className="text-3xl font-bold text-slate-800">
-              Coming Soon 🚀
-            </h2>
+                </div>
 
-            <p className="mt-4 text-lg text-slate-500">
-              Saved business plans will appear here after generation.
-            </p>
+              </section>
 
-          </section>
+              <BusinessPlanPanel
+                startupId={idea.id}
+                report={analysis.report}
+              />
+
+            </>
+
+          )}
 
         </main>
       </div>

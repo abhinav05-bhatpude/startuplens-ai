@@ -27,6 +27,7 @@ export async function createIdea(data: {
 }
 
 export async function analyzeStartup(data: {
+  startupIdeaId: string;
   startupName: string;
   problem: string;
   solution: string;

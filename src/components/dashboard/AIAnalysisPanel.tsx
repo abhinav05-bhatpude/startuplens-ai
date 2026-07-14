@@ -41,7 +41,7 @@ export default function AIAnalysisPanel({
         return;
       }
 
-      setAnalysis(response.data);
+      setAnalysis(response.data.report);
     } catch (error) {
       console.error(error);
       alert("Failed to generate AI analysis.");

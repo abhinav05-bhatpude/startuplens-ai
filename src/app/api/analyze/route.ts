@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { auth } from "@/auth";
+import { prisma } from "@/lib/prisma";
 import { analyzeStartup } from "@/lib/ai/gemini";
 
 export async function POST(request: NextRequest) {
@@ -20,6 +21,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
 
     const {
+      startupIdeaId,
       startupName,
       problem,
       solution,
@@ -27,6 +29,7 @@ export async function POST(request: NextRequest) {
     } = body;
 
     if (
+      !startupIdeaId ||
       !startupName ||
       !problem ||
       !solution ||
@@ -41,19 +44,25 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const businessPlan =
-      await analyzeStartup({
-        startupName,
-        problem,
-        solution,
-        targetAudience,
-      });
+    const report = await analyzeStartup({
+      startupName,
+      problem,
+      solution,
+      targetAudience,
+    });
+
+    const analysis = await prisma.analysis.create({
+      data: {
+        report,
+        userId: session.user.id,
+        startupIdeaId,
+      },
+    });
 
     return NextResponse.json({
       success: true,
-      message:
-        "Business plan generated successfully.",
-      data: businessPlan,
+      message: "Business plan generated successfully.",
+      data: analysis,
     });
   } catch (error) {
     console.error(error);
@@ -61,8 +70,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       {
         success: false,
-        message:
-          "Failed to generate business plan.",
+        message: "Failed to generate business plan.",
       },
       { status: 500 }
     );

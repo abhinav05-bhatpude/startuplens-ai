@@ -29,6 +29,7 @@ export default function AIAnalysisPanel({
       setLoading(true);
 
       const response = await analyzeStartup({
+        startupIdeaId:startupId,
         startupName,
         problem,
         solution,

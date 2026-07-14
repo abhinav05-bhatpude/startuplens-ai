@@ -82,33 +82,13 @@ model StartupIdea {
 model Analysis {
   id String @id @default(cuid())
 
-  executiveSummary String @db.Text
-
-  marketValidation String @db.Text
-
-  competitorInsights String @db.Text
-
-  strengths String @db.Text
-
-  weaknesses String @db.Text
-
-  opportunities String @db.Text
-
-  risks String @db.Text
-
-  mvpPlan String @db.Text
-
-  monetization String @db.Text
-
-  roadmap String @db.Text
-
-  overallScore String
+  report String @db.Text
 
   createdAt DateTime @default(now())
 
   userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   startupIdeaId String
-  startupIdea   StartupIdea @relation(fields: [startupIdeaId], references: [id], onDelete: Cascade)
+  startupIdea StartupIdea @relation(fields: [startupIdeaId], references: [id], onDelete: Cascade)
 }

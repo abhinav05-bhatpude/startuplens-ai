@@ -1,6 +1,8 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 interface ReportPanelProps {
   startupId: string;
@@ -115,17 +117,53 @@ export default function ReportPanel({
             className="rounded-3xl border border-slate-200 p-8"
           >
 
-            <h3 className="mb-6 text-2xl font-bold">
+            <h3 className="mb-5 flex items-center gap-3 text-2xl font-bold text-slate-900">
 
               {getEmoji(section.title)} {section.title}
 
             </h3>
+            <div className="mb-6 h-px bg-gradient-to-r from-indigo-500 via-violet-500 to-transparent" />
 
-            <div className="whitespace-pre-wrap leading-8 text-slate-700">
+            <div
+  className="
+    prose
+    prose-slate
+    max-w-none
 
-              {section.content}
+    prose-headings:font-bold
+    prose-headings:text-slate-900
 
-            </div>
+    prose-h1:text-4xl
+    prose-h2:text-3xl
+    prose-h3:text-2xl
+
+    prose-p:text-slate-700
+    prose-p:leading-8
+
+    prose-li:text-slate-700
+    prose-li:leading-8
+
+    prose-strong:text-slate-900
+
+    prose-table:w-full
+    prose-table:border-collapse
+
+    prose-th:border
+    prose-th:bg-slate-100
+    prose-th:p-3
+
+    prose-td:border
+    prose-td:p-3
+
+    prose-blockquote:border-l-4
+    prose-blockquote:border-indigo-500
+    prose-blockquote:pl-4
+  "
+>
+  <ReactMarkdown remarkPlugins={[remarkGfm]}>
+    {section.content}
+  </ReactMarkdown>
+</div>
 
           </div>
 

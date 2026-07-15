@@ -1,4 +1,6 @@
 import { GoogleGenAI } from "@google/genai";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 const ai = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY!,

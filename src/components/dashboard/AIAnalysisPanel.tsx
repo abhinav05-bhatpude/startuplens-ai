@@ -31,7 +31,7 @@ export default function AIAnalysisPanel({
       setLoading(true);
 
       const response = await analyzeStartup({
-        startupIdeaId:startupId,
+        startupIdeaId: startupId,
         startupName,
         problem,
         solution,
@@ -53,9 +53,7 @@ export default function AIAnalysisPanel({
   }
 
   function parseSections(text: string) {
-    const matches = text.matchAll(
-      /^# (.+?)\n([\s\S]*?)(?=^# |\Z)/gm
-    );
+    const matches = text.matchAll(/^# (.+?)\n([\s\S]*?)(?=^# |\Z)/gm);
 
     return Array.from(matches).map((match) => ({
       title: match[1].trim(),
@@ -94,29 +92,20 @@ export default function AIAnalysisPanel({
     }
   }
 
-  const sections = analysis
-    ? parseSections(analysis)
-    : [];
+  const sections = analysis ? parseSections(analysis) : [];
 
   return (
     <section className="rounded-3xl bg-white shadow-sm">
-
       <div className="border-b border-slate-200 p-8">
-
-        <h2 className="text-3xl font-bold">
-          🤖 AI Analysis
-        </h2>
+        <h2 className="text-3xl font-bold">🤖 AI Analysis</h2>
 
         <p className="mt-2 text-slate-500">
           Generate an investor-grade analysis for this startup.
         </p>
-
       </div>
 
       <div className="space-y-8 p-8">
-
         {!analysis && (
-
           <button
             onClick={handleAnalyze}
             disabled={loading}
@@ -126,54 +115,62 @@ export default function AIAnalysisPanel({
               ? "🤖 Generating AI Analysis..."
               : "🚀 Generate AI Analysis"}
           </button>
-
         )}
 
         {analysis && (
-
           <>
-
             <div className="flex items-center justify-between">
-
               <div>
+                <h2 className="text-3xl font-bold">📑 AI Report</h2>
 
-                <h2 className="text-3xl font-bold">
-                  📑 AI Report
-                </h2>
-
-                <p className="text-slate-500">
-                  Generated successfully.
-                </p>
-
+                <p className="text-slate-500">Generated successfully.</p>
               </div>
 
               <button
-                onClick={() =>
-                  navigator.clipboard.writeText(analysis)
-                }
-                className="rounded-xl bg-sky-500 px-5 py-3 font-semibold text-white"
+                onClick={() => navigator.clipboard.writeText(analysis)}
+                className="
+rounded-xl
+bg-gradient-to-r
+from-sky-500
+to-cyan-500
+px-5
+py-3
+font-semibold
+text-white
+shadow-md
+transition
+hover:scale-105
+"
               >
                 📋 Copy
               </button>
-
             </div>
 
             {sections.map((section) => (
-
               <div
                 key={section.title}
-                className="rounded-3xl border border-slate-200 p-8"
+                className="
+group
+rounded-3xl
+border
+border-slate-200
+bg-white
+p-8
+shadow-sm
+transition-all
+duration-300
+hover:-translate-y-1
+hover:shadow-xl
+"
               >
-
-                <h3 className="mb-6 text-2xl font-bold">
-
+                <h3 className="mb-6 flex items-center gap-3 text-2xl font-bold text-slate-900">
                   {getEmoji(section.title)} {section.title}
-
+                  <div className="mb-6 h-px bg-gradient-to-r from-indigo-500 via-violet-500 to-transparent" />
                 </h3>
 
-              <ReactMarkdown
-  remarkPlugins={[remarkGfm]}
-  class="
+                <ReactMarkdown
+                  remarkPlugins={[remarkGfm]}
+                  class="
     prose
     prose-slate
     max-w-none
@@ -208,31 +205,36 @@ export default function AIAnalysisPanel({
     prose-blockquote:border-indigo-500
     prose-blockquote:pl-4
   "
->
-  {section.content}
-</ReactMarkdown>
-
+                >
+                  {section.content}
+                </ReactMarkdown>
               </div>
-
             ))}
 
             <button
               onClick={() =>
-                router.push(
-                  `/dashboard/business-plans?id=${startupId}`
-                )
+                router.push(`/dashboard/business-plans?id=${startupId}`)
               }
-              className="w-full rounded-2xl bg-emerald-600 py-5 text-lg font-bold text-white"
+              className="
+w-full
+rounded-2xl
+bg-gradient-to-r
+from-emerald-500
+to-green-600
+py-5
+text-lg
+font-bold
+text-white
+shadow-lg
+transition
+hover:scale-[1.01]
+"
             >
               ➜ Continue to Business Plans
             </button>
-
           </>
-
         )}
-
       </div>
-
     </section>
   );
 }

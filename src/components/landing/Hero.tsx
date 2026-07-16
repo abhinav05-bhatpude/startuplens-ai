@@ -65,7 +65,7 @@ export default function Hero() {
         <div className="mt-12 flex flex-col items-center justify-center gap-5 sm:flex-row">
 
           <Link
-            href="/dashboard/startup-ideas"
+            href="/dashboard"
             className="rounded-2xl bg-gradient-to-r from-rose-600 via-pink-600 to-fuchsia-600 px-8 py-4 text-lg font-bold text-white shadow-[0_20px_40px_rgba(244,63,94,.35)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_25px_60px_rgba(244,63,94,.45)]"
           >
             🚀 Analyze Startup

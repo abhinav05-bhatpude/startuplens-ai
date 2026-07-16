@@ -1,11 +1,23 @@
 "use client";
 
+import { useState } from "react";
 import { signOut } from "next-auth/react";
 
 export default function LogoutButton() {
+  const [loading, setLoading] = useState(false);
+
+  async function handleLogout() {
+    setLoading(true);
+
+    await signOut({
+      callbackUrl: "/login",
+    });
+  }
+
   return (
     <button
-      onClick={() => signOut()}
+      onClick={handleLogout}
+      disabled={loading}
       className="
         flex
         items-center
@@ -26,10 +38,21 @@ export default function LogoutButton() {
         hover:-translate-y-1
         hover:shadow-2xl
         active:scale-95
+        disabled:cursor-not-allowed
+        disabled:opacity-70
       "
     >
-      🚪
-      Logout
+      {loading ? (
+        <>
+          ⏳
+          Logging out...
+        </>
+      ) : (
+        <>
+          🚪
+          Logout
+        </>
+      )}
     </button>
   );
 }

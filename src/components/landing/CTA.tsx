@@ -1,16 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useSession } from "next-auth/react";
 
 export default function CTA() {
-  const { status } = useSession();
-
-  const destination =
-    status === "authenticated"
-      ? "/dashboard"
-      : "/login";
-
   return (
     <section className="relative overflow-hidden bg-slate-100 py-28">
 
@@ -51,10 +43,12 @@ export default function CTA() {
 
           </p>
 
+          {/* Buttons */}
+
           <div className="mt-12 flex flex-col items-center justify-center gap-5 sm:flex-row">
 
             <Link
-              href={destination}
+              href="/dashboard"
               className="rounded-2xl bg-gradient-to-r from-rose-600 via-pink-600 to-fuchsia-600 px-8 py-4 text-lg font-bold text-white shadow-[0_20px_40px_rgba(244,63,94,.35)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_30px_60px_rgba(244,63,94,.45)]"
             >
               🚀 Start Building
@@ -68,6 +62,8 @@ export default function CTA() {
             </a>
 
           </div>
+
+          {/* Features */}
 
           <div className="mt-12 flex flex-wrap items-center justify-center gap-8 text-sm font-medium text-slate-600">
 

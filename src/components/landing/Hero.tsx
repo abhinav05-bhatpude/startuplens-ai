@@ -1,3 +1,7 @@
+"use client";
+
+import Link from "next/link";
+
 export default function Hero() {
   return (
     <section className="relative overflow-hidden bg-slate-100 py-32">
@@ -60,17 +64,19 @@ export default function Hero() {
 
         <div className="mt-12 flex flex-col items-center justify-center gap-5 sm:flex-row">
 
-          <button className="rounded-2xl bg-gradient-to-r from-rose-600 via-pink-600 to-fuchsia-600 px-8 py-4 text-lg font-bold text-white shadow-[0_20px_40px_rgba(244,63,94,.35)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_25px_60px_rgba(244,63,94,.45)]">
-
+          <Link
+            href="/dashboard/startup-ideas"
+            className="rounded-2xl bg-gradient-to-r from-rose-600 via-pink-600 to-fuchsia-600 px-8 py-4 text-lg font-bold text-white shadow-[0_20px_40px_rgba(244,63,94,.35)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_25px_60px_rgba(244,63,94,.45)]"
+          >
             🚀 Analyze Startup
+          </Link>
 
-          </button>
-
-          <button className="rounded-2xl border border-slate-300 bg-white px-8 py-4 text-lg font-semibold text-slate-700 shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
-
+          <a
+            href="#features"
+            className="rounded-2xl border border-slate-300 bg-white px-8 py-4 text-lg font-semibold text-slate-700 shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+          >
             ▶ Watch Demo
-
-          </button>
+          </a>
 
         </div>
 

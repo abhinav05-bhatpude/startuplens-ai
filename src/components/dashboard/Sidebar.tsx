@@ -40,21 +40,39 @@ export default function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="hidden min-h-screen w-72 border-r border-slate-200 bg-gradient-to-b from-indigo-700 via-violet-700 to-sky-600 text-white md:flex md:flex-col">
+    <aside className="hidden min-h-screen w-72 flex-col border-r border-slate-800 bg-slate-950 text-white md:flex">
 
-      <div className="border-b border-white/10 p-8">
+      {/* Logo */}
 
-        <h1 className="text-3xl font-bold">
-          StartupLens AI
-        </h1>
+      <div className="border-b border-slate-800 p-8">
 
-        <p className="mt-2 text-sm text-indigo-100">
-          AI Business Planner
-        </p>
+        <div className="flex items-center gap-4">
+
+          <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-rose-600 via-pink-600 to-fuchsia-600 text-2xl shadow-lg">
+
+            🚀
+
+          </div>
+
+          <div>
+
+            <h1 className="text-2xl font-bold">
+              StartupLens AI
+            </h1>
+
+            <p className="mt-1 text-sm text-slate-400">
+              AI Business Planner
+            </p>
+
+          </div>
+
+        </div>
 
       </div>
 
-      <nav className="flex flex-1 flex-col gap-2 p-6">
+      {/* Navigation */}
+
+      <nav className="flex flex-1 flex-col gap-3 p-6">
 
         {menuItems.map((item) => {
 
@@ -64,33 +82,53 @@ export default function Sidebar() {
             <Link
               key={item.href}
               href={item.href}
-              className={`rounded-xl px-5 py-3 transition ${
+              className={`group flex items-center gap-4 rounded-2xl px-4 py-4 transition-all duration-300 ${
                 active
-                  ? "bg-white/20 font-semibold backdrop-blur"
-                  : "text-indigo-100 hover:bg-white/10"
+                  ? "bg-gradient-to-r from-rose-600 via-pink-600 to-fuchsia-600 text-white shadow-lg"
+                  : "text-slate-300 hover:bg-slate-900 hover:text-white"
               }`}
             >
-              <span className="mr-3">
+
+              <div
+                className={`flex h-11 w-11 items-center justify-center rounded-xl transition ${
+                  active
+                    ? "bg-white/20"
+                    : "bg-slate-800 group-hover:bg-slate-700"
+                }`}
+              >
                 {item.icon}
+              </div>
+
+              <span className="font-medium">
+                {item.title}
               </span>
 
-              {item.title}
             </Link>
           );
+
         })}
 
       </nav>
 
-      <div className="border-t border-white/10 p-6">
+      {/* Footer Card */}
 
-        <div className="rounded-2xl bg-white/10 p-5 backdrop-blur">
+      <div className="p-6">
 
-          <p className="text-sm font-semibold">
-            🚀 AI Powered
-          </p>
+        <div className="rounded-3xl border border-slate-800 bg-slate-900 p-6">
 
-          <p className="mt-2 text-xs text-indigo-100">
-            Build, validate and launch startup ideas faster with Gemini AI.
+          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-rose-600 via-pink-600 to-fuchsia-600">
+
+            ✨
+
+          </div>
+
+          <h3 className="text-lg font-bold">
+            AI Powered
+          </h3>
+
+          <p className="mt-3 text-sm leading-7 text-slate-400">
+            Validate ideas, generate business plans and launch
+            startups faster with Gemini AI.
           </p>
 
         </div>

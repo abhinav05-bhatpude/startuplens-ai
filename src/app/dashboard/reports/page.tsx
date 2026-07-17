@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
 import Sidebar from "@/components/dashboard/Sidebar";
@@ -21,7 +21,7 @@ interface Analysis {
   report: string;
 }
 
-export default function ReportsPage() {
+function ReportsContent() {
   const searchParams = useSearchParams();
 
   const startupId = searchParams.get("id");
@@ -66,9 +66,11 @@ export default function ReportsPage() {
 
   return (
     <div className="flex min-h-screen bg-slate-50">
+
       <Sidebar />
 
       <div className="flex-1">
+
         <DashboardNavbar />
 
         <main className="space-y-8 p-8">
@@ -158,7 +160,23 @@ export default function ReportsPage() {
           )}
 
         </main>
+
       </div>
+
     </div>
+  );
+}
+
+export default function ReportsPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen items-center justify-center text-xl font-semibold">
+          Loading Report...
+        </div>
+      }
+    >
+      <ReportsContent />
+    </Suspense>
   );
 }

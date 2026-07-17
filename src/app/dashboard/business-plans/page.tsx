@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
 import Sidebar from "@/components/dashboard/Sidebar";
@@ -21,7 +21,7 @@ interface Analysis {
   report: string;
 }
 
-export default function BusinessPlansPage() {
+function BusinessPlansContent() {
   const searchParams = useSearchParams();
 
   const startupId = searchParams.get("id");
@@ -158,7 +158,22 @@ export default function BusinessPlansPage() {
           )}
 
         </main>
+
       </div>
     </div>
+  );
+}
+
+export default function BusinessPlansPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen items-center justify-center">
+          Loading...
+        </div>
+      }
+    >
+      <BusinessPlansContent />
+    </Suspense>
   );
 }

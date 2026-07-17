@@ -157,8 +157,8 @@ export default function DashboardPage() {
                     Business Plans
                   </span>
 
-                  <span className="font-bold text-yellow-600">
-                    In Progress
+                  <span className="font-bold text-green-600">
+                    Ready
                   </span>
                 </div>
 
@@ -167,8 +167,8 @@ export default function DashboardPage() {
                     Reports
                   </span>
 
-                  <span className="font-bold text-yellow-600">
-                    In Progress
+                  <span className="font-bold text-green-600">
+                    Ready
                   </span>
                 </div>
 

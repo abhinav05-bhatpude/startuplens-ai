@@ -64,14 +64,9 @@ export default function Navbar() {
 
           </div>
 
-          {/* CTA */}
+      
 
-          <button className="rounded-full bg-gradient-to-r from-rose-600 via-pink-600 to-fuchsia-600 px-7 py-3 font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
-
-            Get Started
-
-          </button>
-
+          
         </nav>
 
       </div>

@@ -44,12 +44,13 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const report = await analyzeStartup({
-      startupName,
-      problem,
-      solution,
-      targetAudience,
-    });
+   const report =
+  (await analyzeStartup({
+    startupName,
+    problem,
+    solution,
+    targetAudience,
+  })) ?? "";
 
     const analysis = await prisma.analysis.create({
       data: {

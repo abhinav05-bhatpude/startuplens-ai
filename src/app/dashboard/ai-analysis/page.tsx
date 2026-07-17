@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
 import Sidebar from "@/components/dashboard/Sidebar";
@@ -16,13 +16,16 @@ interface StartupIdea {
   solution: string;
 }
 
-export default function AIAnalysisPage() {
+function AIAnalysisContent() {
   const searchParams = useSearchParams();
 
   const ideaId = searchParams.get("id");
 
-  const [idea, setIdea] = useState<StartupIdea | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [idea, setIdea] =
+    useState<StartupIdea | null>(null);
+
+  const [loading, setLoading] =
+    useState(true);
 
   useEffect(() => {
     async function loadIdea() {
@@ -49,9 +52,11 @@ export default function AIAnalysisPage() {
 
   return (
     <div className="flex min-h-screen bg-slate-50">
+
       <Sidebar />
 
       <div className="flex-1">
+
         <DashboardNavbar />
 
         <main className="space-y-8 p-8">
@@ -95,6 +100,7 @@ export default function AIAnalysisPage() {
           ) : (
 
             <>
+
               <section className="rounded-3xl bg-white p-8 shadow-sm">
 
                 <h2 className="mb-8 text-3xl font-bold">
@@ -157,6 +163,21 @@ export default function AIAnalysisPage() {
         </main>
 
       </div>
+
     </div>
+  );
+}
+
+export default function AIAnalysisPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen items-center justify-center">
+          Loading...
+        </div>
+      }
+    >
+      <AIAnalysisContent />
+    </Suspense>
   );
 }

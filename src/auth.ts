@@ -1,4 +1,6 @@
 import NextAuth from "next-auth";
+import authConfig from "./auth.config";
+
 import Google from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@auth/prisma-adapter";
@@ -12,22 +14,19 @@ export const {
   signOut,
   auth,
 } = NextAuth({
+  ...authConfig,
+
   adapter: PrismaAdapter(prisma),
 
   session: {
     strategy: "jwt",
   },
 
-  pages: {
-    signIn: "/login",
-  },
-
   callbacks: {
-    async jwt({ token, user }) {
-      if (user) {
-        token.id = user.id;
-      }
+    ...authConfig.callbacks,
 
+    async jwt({ token, user }) {
+      if (user) token.id = user.id;
       return token;
     },
 
@@ -35,32 +34,14 @@ export const {
       if (session.user) {
         session.user.id = token.id as string;
       }
-
       return session;
-    },
-
-    authorized({ auth, request }) {
-      const isLoggedIn = !!auth?.user;
-
-      const isDashboard =
-        request.nextUrl.pathname.startsWith(
-          "/dashboard"
-        );
-
-      if (isDashboard && !isLoggedIn) {
-        return false;
-      }
-
-      return true;
     },
   },
 
   providers: [
     Google({
-      clientId:
-        process.env.GOOGLE_CLIENT_ID || "",
-      clientSecret:
-        process.env.GOOGLE_CLIENT_SECRET || "",
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
 
     Credentials({
@@ -70,31 +51,26 @@ export const {
       },
 
       async authorize(credentials) {
-        if (
-          !credentials?.email ||
-          !credentials?.password
-        ) {
+        if (!credentials?.email || !credentials?.password) {
           return null;
         }
 
-        const user =
-          await prisma.user.findUnique({
-            where: {
-              email: credentials.email as string,
-            },
-          });
+        const user = await prisma.user.findUnique({
+          where: {
+            email: credentials.email as string,
+          },
+        });
 
         if (!user || !user.password) {
           return null;
         }
 
-        const isValidPassword =
-          await bcrypt.compare(
-            credentials.password as string,
-            user.password
-          );
+        const valid = await bcrypt.compare(
+          credentials.password as string,
+          user.password
+        );
 
-        if (!isValidPassword) {
+        if (!valid) {
           return null;
         }
 

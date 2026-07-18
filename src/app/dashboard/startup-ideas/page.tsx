@@ -3,8 +3,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-import Sidebar from "@/components/dashboard/Sidebar";
-import DashboardNavbar from "@/components/dashboard/DashboardNavbar";
 import CreateIdeaModal from "@/components/dashboard/CreateIdeaModal";
 import EditIdeaModal from "@/components/dashboard/EditIdeaModal";
 import IdeaCard from "@/components/dashboard/IdeaCard";
@@ -86,107 +84,99 @@ export default function StartupIdeasPage() {
   }
 
   return (
-    <div className="flex min-h-screen bg-slate-50">
-      <Sidebar />
+    <main className="space-y-10">
 
-      <div className="flex-1">
-        <DashboardNavbar />
+      <section className="rounded-3xl bg-gradient-to-r from-indigo-600 via-violet-600 to-sky-500 p-10 text-white shadow-xl">
 
-        <main className="space-y-10 p-8">
+        <h1 className="text-4xl font-bold">
+          💡 Startup Ideas
+        </h1>
 
-          <section className="rounded-3xl bg-gradient-to-r from-indigo-600 via-violet-600 to-sky-500 p-10 text-white shadow-xl">
+        <p className="mt-3 max-w-3xl text-lg text-indigo-100">
+          Create, organize and manage your startup ideas before validating
+          them with AI.
+        </p>
 
-            <h1 className="text-4xl font-bold">
-              💡 Startup Ideas
-            </h1>
+      </section>
 
-            <p className="mt-3 max-w-3xl text-lg text-indigo-100">
-              Create, organize and manage your startup ideas before validating
-              them with AI.
+      <CreateIdeaModal
+        onIdeaCreated={fetchIdeas}
+      />
+
+      {editingIdea && (
+        <EditIdeaModal
+          id={editingIdea.id}
+          initialTitle={editingIdea.title}
+          initialProblem={editingIdea.problem}
+          initialSolution={editingIdea.solution}
+          onClose={() => setEditingIdea(null)}
+          onIdeaUpdated={fetchIdeas}
+        />
+      )}
+
+      <section>
+
+        <div className="mb-6">
+
+          <h2 className="text-3xl font-bold text-slate-800">
+            🚀 Your Startup Ideas
+          </h2>
+
+          <p className="mt-2 text-slate-500">
+            Edit, delete or analyze any startup idea.
+          </p>
+
+        </div>
+
+        {loading ? (
+
+          <div className="rounded-3xl bg-white p-10 text-center shadow-sm">
+
+            <h2 className="text-xl font-semibold">
+              Loading Startup Ideas...
+            </h2>
+
+          </div>
+
+        ) : ideas.length === 0 ? (
+
+          <div className="rounded-3xl bg-white p-10 text-center shadow-sm">
+
+            <h2 className="text-2xl font-bold">
+              No Startup Ideas Yet
+            </h2>
+
+            <p className="mt-3 text-slate-500">
+              Create your first startup idea.
             </p>
 
-          </section>
+          </div>
 
-          <CreateIdeaModal
-            onIdeaCreated={fetchIdeas}
-          />
+        ) : (
 
-          {editingIdea && (
-            <EditIdeaModal
-              id={editingIdea.id}
-              initialTitle={editingIdea.title}
-              initialProblem={editingIdea.problem}
-              initialSolution={editingIdea.solution}
-              onClose={() => setEditingIdea(null)}
-              onIdeaUpdated={fetchIdeas}
-            />
-          )}
+          <div className="grid gap-6 lg:grid-cols-2">
 
-          <section>
+            {ideas.map((idea) => (
 
-            <div className="mb-6">
+              <IdeaCard
+                key={idea.id}
+                id={idea.id}
+                title={idea.title}
+                problem={idea.problem}
+                solution={idea.solution}
+                onEdit={handleEdit}
+                onDelete={handleDelete}
+                onAnalyze={handleAnalyze}
+              />
 
-              <h2 className="text-3xl font-bold text-slate-800">
-                🚀 Your Startup Ideas
-              </h2>
+            ))}
 
-              <p className="mt-2 text-slate-500">
-                Edit, delete or analyze any startup idea.
-              </p>
+          </div>
 
-            </div>
+        )}
 
-            {loading ? (
+      </section>
 
-              <div className="rounded-3xl bg-white p-10 text-center shadow-sm">
-
-                <h2 className="text-xl font-semibold">
-                  Loading Startup Ideas...
-                </h2>
-
-              </div>
-
-            ) : ideas.length === 0 ? (
-
-              <div className="rounded-3xl bg-white p-10 text-center shadow-sm">
-
-                <h2 className="text-2xl font-bold">
-                  No Startup Ideas Yet
-                </h2>
-
-                <p className="mt-3 text-slate-500">
-                  Create your first startup idea.
-                </p>
-
-              </div>
-
-            ) : (
-
-              <div className="grid gap-6 lg:grid-cols-2">
-
-                {ideas.map((idea) => (
-
-                  <IdeaCard
-                    key={idea.id}
-                    id={idea.id}
-                    title={idea.title}
-                    problem={idea.problem}
-                    solution={idea.solution}
-                    onEdit={handleEdit}
-                    onDelete={handleDelete}
-                    onAnalyze={handleAnalyze}
-                  />
-
-                ))}
-
-              </div>
-
-            )}
-
-          </section>
-
-        </main>
-      </div>
-    </div>
+    </main>
   );
 }

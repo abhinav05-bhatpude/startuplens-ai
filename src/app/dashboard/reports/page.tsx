@@ -3,8 +3,6 @@
 import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
-import Sidebar from "@/components/dashboard/Sidebar";
-import DashboardNavbar from "@/components/dashboard/DashboardNavbar";
 import ReportPanel from "@/components/dashboard/ReportPanel";
 
 import { getIdea } from "@/lib/api";
@@ -65,105 +63,94 @@ function ReportsContent() {
   }, [startupId]);
 
   return (
-    <div className="flex min-h-screen bg-slate-50">
+    <main className="space-y-8">
 
-      <Sidebar />
+      <section className="rounded-3xl bg-gradient-to-r from-indigo-600 via-violet-600 to-sky-500 p-10 text-white shadow-xl">
 
-      <div className="flex-1">
+        <h1 className="text-4xl font-bold">
+          📊 Startup Report
+        </h1>
 
-        <DashboardNavbar />
+        <p className="mt-3 text-lg text-indigo-100">
+          Complete AI-generated startup evaluation.
+        </p>
 
-        <main className="space-y-8 p-8">
+      </section>
 
-          <section className="rounded-3xl bg-gradient-to-r from-indigo-600 via-violet-600 to-sky-500 p-10 text-white shadow-xl">
+      {loading ? (
 
-            <h1 className="text-4xl font-bold">
-              📊 Startup Report
-            </h1>
+        <div className="rounded-3xl bg-white p-10 shadow-sm">
 
-            <p className="mt-3 text-lg text-indigo-100">
-              Complete AI-generated startup evaluation.
-            </p>
+          <h2 className="text-xl font-semibold">
+            Loading Report...
+          </h2>
+
+        </div>
+
+      ) : !idea || !analysis ? (
+
+        <div className="rounded-3xl bg-white p-10 shadow-sm">
+
+          <h2 className="text-2xl font-bold">
+            Report Not Found
+          </h2>
+
+          <p className="mt-3 text-slate-500">
+            Generate an AI Analysis first.
+          </p>
+
+        </div>
+
+      ) : (
+
+        <>
+
+          <section className="rounded-3xl bg-white p-8 shadow-sm">
+
+            <h2 className="mb-6 text-3xl font-bold">
+              💡 Startup
+            </h2>
+
+            <div className="space-y-5">
+
+              <div>
+
+                <p className="text-sm font-semibold uppercase text-slate-500">
+                  Startup Name
+                </p>
+
+                <h3 className="mt-2 text-3xl font-bold">
+                  {idea.title}
+                </h3>
+
+              </div>
+
+              <div>
+
+                <p className="text-sm font-semibold uppercase text-slate-500">
+                  Problem
+                </p>
+
+                <p className="mt-2 leading-8 text-slate-700">
+                  {idea.problem}
+                </p>
+
+              </div>
+
+            </div>
 
           </section>
 
-          {loading ? (
+          <ReportPanel
+            startupId={idea.id}
+            report={analysis.report}
+          />
 
-            <div className="rounded-3xl bg-white p-10 shadow-sm">
+        </>
 
-              <h2 className="text-xl font-semibold">
-                Loading Report...
-              </h2>
+      )}
 
-            </div>
-
-          ) : !idea || !analysis ? (
-
-            <div className="rounded-3xl bg-white p-10 shadow-sm">
-
-              <h2 className="text-2xl font-bold">
-                Report Not Found
-              </h2>
-
-              <p className="mt-3 text-slate-500">
-                Generate an AI Analysis first.
-              </p>
-
-            </div>
-
-          ) : (
-
-            <>
-              <section className="rounded-3xl bg-white p-8 shadow-sm">
-
-                <h2 className="mb-6 text-3xl font-bold">
-                  💡 Startup
-                </h2>
-
-                <div className="space-y-5">
-
-                  <div>
-
-                    <p className="text-sm font-semibold uppercase text-slate-500">
-                      Startup Name
-                    </p>
-
-                    <h3 className="mt-2 text-3xl font-bold">
-                      {idea.title}
-                    </h3>
-
-                  </div>
-
-                  <div>
-
-                    <p className="text-sm font-semibold uppercase text-slate-500">
-                      Problem
-                    </p>
-
-                    <p className="mt-2 leading-8 text-slate-700">
-                      {idea.problem}
-                    </p>
-
-                  </div>
-
-                </div>
-
-              </section>
-
-              <ReportPanel
-                startupId={idea.id}
-                report={analysis.report}
-              />
-
-            </>
-
-          )}
-
-        </main>
-
-      </div>
-
-    </div>
+    </main>
   );
 }
 

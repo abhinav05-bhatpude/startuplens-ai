@@ -64,3 +64,37 @@ The application is built with modern web technologies including Next.js, TypeScr
 - Beautiful modern UI built with Tailwind CSS
 
 ---
+
+## 🛠 Tech Stack
+
+### Frontend
+- Next.js 16
+- React 19
+- TypeScript
+- Tailwind CSS
+- React Markdown
+
+### Backend
+- Next.js API Routes
+- Auth.js
+- Prisma ORM
+
+### Database
+- PostgreSQL
+- Neon Database
+
+### Artificial Intelligence
+- Google Gemini AI
+
+### Authentication
+- Google OAuth
+- Credentials Authentication
+
+### Deployment
+- Vercel
+
+### Development Tools
+- Git
+- GitHub
+- npm
+- ESLint

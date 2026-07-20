@@ -26,4 +26,41 @@ StartupLens AI solves this problem by providing AI-powered startup validation in
 
 The application is built with modern web technologies including Next.js, TypeScript, Prisma ORM, PostgreSQL, Auth.js, Tailwind CSS, and Google Gemini AI.
 
+## ✨ Features
+
+### 🤖 AI Startup Validation
+- Analyze startup ideas using Google Gemini AI
+- Evaluate business feasibility and market potential
+- Generate investor-style startup reports
+
+### 💡 Startup Idea Management
+- Create, edit, and delete startup ideas
+- Organize all startup ideas in one dashboard
+- Access previous analyses anytime
+
+### 📄 AI Business Plans
+- Generate detailed business plans
+- Receive monetization strategies
+- Get MVP recommendations
+- View launch roadmaps
+
+### 📊 Startup Reports
+- SWOT analysis
+- Competitor insights
+- Market validation
+- Founder action plan
+- Executive summary
+
+### 🔐 Secure Authentication
+- Google OAuth Login
+- Credentials Authentication
+- Protected Dashboard Routes
+- Session Management with Auth.js
+
+### 🎨 Modern User Experience
+- Fully responsive design
+- Mobile-friendly dashboard
+- Clean and intuitive interface
+- Beautiful modern UI built with Tailwind CSS
+
 ---

@@ -119,3 +119,41 @@ src/
 prisma/
 public/
 ```
+
+## ⚙️ Installation
+
+### Clone the Repository
+
+```bash
+git clone https://github.com/abhinav05-bhatpude/startuplens-ai.git
+```
+
+### Navigate to the Project
+
+```bash
+cd startuplens-ai
+```
+
+### Install Dependencies
+
+```bash
+npm install
+```
+
+### Generate Prisma Client
+
+```bash
+npx prisma generate
+```
+
+### Run Database Migrations
+
+```bash
+npx prisma migrate dev
+```
+
+### Start Development Server
+
+```bash
+npm run dev
+```

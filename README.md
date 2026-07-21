@@ -98,3 +98,24 @@ The application is built with modern web technologies including Next.js, TypeScr
 - GitHub
 - npm
 - ESLint
+
+
+## 📂 Project Structure
+
+```text
+src/
+├── app/
+│   ├── api/
+│   ├── dashboard/
+│   ├── login/
+│   └── register/
+├── components/
+│   ├── dashboard/
+│   └── landing/
+├── lib/
+├── generated/
+└── auth.ts
+
+prisma/
+public/
+```

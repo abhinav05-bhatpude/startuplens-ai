@@ -166,3 +166,17 @@ npm run dev
 4. AI generates business plans and market insights.
 5. Reports are stored and can be accessed anytime.
 6. Users can review, edit, and manage all startup analyses.
+
+
+## 🚀 Future Improvements
+
+- AI-powered pitch deck generation
+- Export reports as PDF
+- Startup collaboration with team members
+- AI startup mentor chatbot
+- Multi-language support
+- Payment integration
+- Docker support
+- Unit & E2E testing
+- GitHub Actions CI/CD
+- Advanced analytics dashboard

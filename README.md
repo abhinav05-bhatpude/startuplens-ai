@@ -157,3 +157,12 @@ npx prisma migrate dev
 ```bash
 npm run dev
 ```
+
+## 🔄 Application Workflow
+
+1. User signs in using Google or email/password.
+2. Create and manage startup ideas from the dashboard.
+3. Gemini AI analyzes the startup idea.
+4. AI generates business plans and market insights.
+5. Reports are stored and can be accessed anytime.
+6. Users can review, edit, and manage all startup analyses.

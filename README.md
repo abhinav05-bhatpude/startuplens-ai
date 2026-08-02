@@ -40,9 +40,12 @@ The platform helps users:
 ## ✨ Features
 
 ### 🤖 AI Startup Validation
+
 - Analyze startup ideas using Google Gemini AI
-- Evaluate business feasibility and market potential
-- Generate investor-style startup reports
+- Evaluate market demand and feasibility
+- Identify strengths and weaknesses
+- Generate investor-focused startup insights
+- Recommend actionable next steps
 
 ### 💡 Startup Idea Management
 - Create, edit, and delete startup ideas

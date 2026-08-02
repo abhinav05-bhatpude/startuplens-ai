@@ -142,6 +142,16 @@ src/
 prisma/
 public/
 ```
+## ✅ Prerequisites
+
+Before running the project, ensure you have:
+
+- Node.js 20+
+- npm
+- PostgreSQL database (Neon recommended)
+- Google Gemini API Key
+- Google OAuth credentials
+- Git
 
 ## ⚙️ Installation
 

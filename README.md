@@ -222,15 +222,20 @@ Google Gemini AI
 ```
 
 
-## 🚀 Future Improvements
+## 🚀 Future Roadmap
 
-- AI-powered pitch deck generation
-- Export reports as PDF
-- Startup collaboration with team members
-- AI startup mentor chatbot
-- Multi-language support
-- Payment integration
-- Docker support
-- Unit & E2E testing
+### Phase 1
+- AI Pitch Deck Generator
+- PDF Report Export
+- Team Collaboration
+
+### Phase 2
+- AI Startup Mentor
+- Payment Integration
+- Multi-language Support
+
+### Phase 3
+- Docker Deployment
 - GitHub Actions CI/CD
-- Advanced analytics dashboard
+- Analytics Dashboard
+- AI Competitor Tracking

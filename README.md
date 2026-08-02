@@ -79,6 +79,15 @@ The platform helps users:
 
 ---
 
+## 🌟 Project Highlights
+
+- Modern full-stack architecture
+- AI-assisted startup validation
+- Secure authentication
+- Responsive dashboard
+- Persistent PostgreSQL database
+- Clean and scalable codebase
+
 ## 🛠 Tech Stack
 
 ### Frontend

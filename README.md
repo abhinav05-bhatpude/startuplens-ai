@@ -26,6 +26,17 @@ StartupLens AI solves this problem by providing AI-powered startup validation in
 
 The application is built with modern web technologies including Next.js, TypeScript, Prisma ORM, PostgreSQL, Auth.js, Tailwind CSS, and Google Gemini AI.
 
+## 🎯 Project Goals
+
+StartupLens AI is designed for aspiring entrepreneurs, indie hackers, and startup founders who want to validate business ideas before investing significant time and resources.
+
+The platform helps users:
+
+- Validate startup ideas using AI
+- Discover market opportunities
+- Build structured business plans
+- Reduce early-stage business risk
+
 ## ✨ Features
 
 ### 🤖 AI Startup Validation

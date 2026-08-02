@@ -200,6 +200,27 @@ npm run dev
 5. Reports are stored and can be accessed anytime.
 6. Users can review, edit, and manage all startup analyses.
 
+## 🏗 Architecture
+
+```text
+Client (Next.js)
+        │
+        ▼
+Authentication (Auth.js)
+        │
+        ▼
+API Routes
+        │
+        ▼
+Prisma ORM
+        │
+        ▼
+PostgreSQL
+        │
+        ▼
+Google Gemini AI
+```
+
 
 ## 🚀 Future Improvements
 

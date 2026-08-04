@@ -122,6 +122,18 @@ The platform helps users:
 - npm
 - ESLint
 
+- # 📸 Application Screenshots
+
+## 🏠 Landing Page
+
+![Landing Page](./public/landing-page.png)
+
+---
+
+## 📊 Dashboard
+
+![Dashboard](./public/screenshots/dashboard.png)
+
 
 ## 📂 Project Structure
 
